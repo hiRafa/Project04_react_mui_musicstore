@@ -13,9 +13,10 @@ import { Logout } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import ButtonSignup from "../Buttons/ButtonSignup";
 import ButtonSignin from "../Buttons/ButtonSignin";
+import ButtonLogout from "../Buttons/ButtonLogout";
 
 const NavBarMenuRight = () => {
-  const { navMenuRightOpen, setNavMenuRightOpen, isLoggedin, setIsLoggedin } =
+  const { navMenuRightOpen, setNavMenuRightOpen, userIsLoggedIn } =
     useContext(GlobalContexts);
   // Profile state
 
@@ -42,10 +43,10 @@ const NavBarMenuRight = () => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "top" }}
     >
-      {isLoggedin ? (
+      {userIsLoggedIn ? (
         <MenuItem>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <ButtonLogout />
           </ListItemIcon>
           Logout
         </MenuItem>

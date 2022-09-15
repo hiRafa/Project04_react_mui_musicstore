@@ -51,13 +51,8 @@ const Navbar = ({ theme }) => {
     setActiveMenu,
     screenSize,
     setScreenSize,
-    navMenuRightOpen,
     setNavMenuRightOpen,
-    navMenuSelectedIndex,
-    setNavMenuSelectedIndex,
-    handleNavItemClick,
-    isLoggedin,
-    setIsLoggedin,
+    userIsLoggedIn,
   } = useContext(GlobalContexts);
 
   useEffect(() => {
@@ -106,19 +101,19 @@ const Navbar = ({ theme }) => {
         <NavBarSearch></NavBarSearch>
         <IconsBarCustomDesktop>
           {cartBadge}
-          {!isLoggedin ? (
+          {userIsLoggedIn ? (
             <IconsBarCustomDesktop>
-              <ButtonSignup />
-              <ButtonSignin />
-            </IconsBarCustomDesktop>
-          ) : (
-            <IconsBarCustomDesktop>
-              <Typography>Welcome </Typography>
+              <Typography>Welcome</Typography>
               <Avatar
                 src=""
                 sx={{ width: 30, height: 30 }}
                 onClick={(e) => setNavMenuRightOpen(true)}
               />
+            </IconsBarCustomDesktop>
+          ) : (
+            <IconsBarCustomDesktop>
+              <ButtonSignup />
+              <ButtonSignin />
             </IconsBarCustomDesktop>
           )}
         </IconsBarCustomDesktop>

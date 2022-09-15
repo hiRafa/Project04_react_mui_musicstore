@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import React, { Suspense, useContext } from "react";
 
 import Sidebar from "./components/Navigation/Sidebar";
@@ -17,14 +17,13 @@ const FavoritesPage = React.lazy(() => import("./components/FavoritesPage"));
 const LogIn = React.lazy(() => import("./components/LogInPage"));
 
 function App() {
-  const globalContxts = useContext(GlobalContexts);
-  const activate = globalContxts.activeMenu;
+  const { activeMenu, userIsLoggedIn, navigate } = useContext(GlobalContexts);
 
   return (
     <Box sx={{ height: "100vh" }}>
       <Navbar />
       <Stack direction="row" className={classes.stack}>
-        {activate ? <Sidebar /> : ""}
+        {activeMenu ? <Sidebar /> : ""}
         {/* to use lazy loading and improve loading performances */}
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
@@ -36,7 +35,9 @@ function App() {
             <Route path="/shops" element={<ShopsPage />} />
             <Route path="/articles" element={<ArticlesPage />} />
 
-            <Route path="/logIn" element={<LogIn />} />
+            {!userIsLoggedIn && <Route path="/logIn" element={<LogIn />} />}
+
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </Stack>

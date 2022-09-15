@@ -1,19 +1,22 @@
-import React from "react";
-import { Box, Button } from "@mui/material";
+import React, { useContext } from "react";
+import { Button } from "@mui/material";
 import BoxPages from "./ui/BoxPages";
 import GlobalContexts from "./context/global-contexts";
-import { useContext } from "react";
-import ProfileForm from "./Profile/ProfileForm";
 import UserProfile from "./Profile/UserProfile";
+import { NavLink } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { isLoggedin, setIsLoggedin } = useContext(GlobalContexts);
+  const { userIsLoggedIn } = useContext(GlobalContexts);
 
   return (
     <BoxPages>
-      {isLoggedin ? "" : <Button></Button>}
-
-      <UserProfile />
+      {userIsLoggedIn ? (
+        <UserProfile />
+      ) : (
+        <NavLink to="/login">
+          <Button> Please Log in </Button>
+        </NavLink>
+      )}
     </BoxPages>
   );
 };

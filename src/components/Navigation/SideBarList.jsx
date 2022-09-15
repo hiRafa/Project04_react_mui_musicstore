@@ -9,6 +9,7 @@ import {
   ListItemText,
   FormControlLabel,
   Switch,
+  Button,
 } from "@mui/material";
 
 import DraftsIcon from "@mui/icons-material/Drafts";
@@ -54,7 +55,7 @@ const menuItems = [
 ];
 
 const SideBarList = (props) => {
-  const { navMenuSelectedIndex, setNavMenuSelectedIndex, handleNavItemClick } =
+  const { navMenuSelectedIndex, handleNavItemClick, userId } =
     useContext(GlobalContexts);
   // const handleListItemClick = (event, index) => {
   //   setNavMenuSelectedIndex(index);
@@ -86,7 +87,6 @@ const SideBarList = (props) => {
           // failed, couldnt pass the function and the state through props
         />
       ))} */}
-
       <ListItemButton
         selected={navMenuSelectedIndex === 10}
         onClick={(event) => handleNavItemClick(event, 10)}

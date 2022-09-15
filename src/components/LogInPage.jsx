@@ -9,14 +9,26 @@ import classes from "./Signup.module.css";
 import AuthContext from "./context/auth-context";
 
 const LogIn = () => {
-  // const history = useHistory();
+  let fukngID;
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const authCtx = useContext(AuthContext);
-  const { hasAccount, hasAccountOrNotHandler } = useContext(GlobalContexts);
+  // const authCtx = useContext(AuthContext);
+  const {
+    isLogin,
+    setIsLogin,
+    login,
+    isLoading,
+    setIsLoading,
+    navigate,
+    getFromAuthLocalId,
+    localIdFromAuth,
+  } = useContext(GlobalContexts);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -28,13 +40,14 @@ const LogIn = () => {
 
     setIsLoading(true);
     let url;
-    if (hasAccount) {
+    if (isLogin) {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAPecGF3jCW2FZYzgdnIlYfr_7PQ7ufx88";
     } else {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAPecGF3jCW2FZYzgdnIlYfr_7PQ7ufx88";
     }
+
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -48,7 +61,9 @@ const LogIn = () => {
     })
       .then((res) => {
         setIsLoading(false);
+        console.log(res);
         if (res.ok) {
+          console.log(res);
           return res.json();
         } else {
           return res.json().then((data) => {
@@ -62,7 +77,14 @@ const LogIn = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        login(data.idToken, expirationTime.toISOString());
+
+        navigate("/", { replace: true });
+
+        // replace true to avoid users going back to log in page.
       })
       .catch((err) => {
         alert(err.message);
@@ -72,7 +94,7 @@ const LogIn = () => {
   return (
     <BoxPages>
       <section className={classes.auth}>
-        <h1>{hasAccount ? "Login" : "Sign Up"}</h1>
+        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <form onSubmit={submitHandler}>
           <TextField
             label="email"
@@ -95,33 +117,18 @@ const LogIn = () => {
             sx={{ bgcolor: "white", borderRadius: "5px" }}
           />
 
-          {/* <div className={classes.control}>
-            <label htmlFor="email">Your Email</label>
-            <input type="email" id="email" required ref={emailInputRef} />
-          </div> */}
-          {/* <div className={classes.control}>
-            <label htmlFor="password">Your Password</label>
-            <input
-              type="password"
-              id="password"
-              required
-              ref={passwordInputRef}
-            />
-          </div> */}
           <div className={classes.actions}>
             {!isLoading && (
-              <Button>{hasAccount ? "Login" : "Create Account"}</Button>
+              <button>{isLogin ? "Login" : "Create Account"}</button>
             )}
             {isLoading && <p>Sending request...</p>}
-            {hasAccount ? (
-              <Button onClick={hasAccountOrNotHandler} variant="text">
-                "Create new account"
-              </Button>
-            ) : (
-              <Button onClick={hasAccountOrNotHandler} variant="text">
-                "Login with existing account"
-              </Button>
-            )}
+            <button
+              type="button"
+              className={classes.toggle}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? "Create new account" : "Login with existing account"}
+            </button>
           </div>
         </form>
       </section>
