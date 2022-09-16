@@ -1,34 +1,21 @@
-import { TextField, Stack, Button, Box } from "@mui/material";
-import React, { useState } from "react";
+import { TextField } from "@mui/material";
+import React from "react";
 import { useContext } from "react";
 import { useRef } from "react";
-// import { useHistory } from "react-router-dom";
 import GlobalContexts from "./context/global-contexts";
 import BoxPages from "./ui/BoxPages";
 import classes from "./Signup.module.css";
-import AuthContext from "./context/auth-context";
+import LoginContent from "./context/login-token-context";
 
 const LogIn = () => {
-  let fukngID;
-
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   // const authCtx = useContext(AuthContext);
-  const {
-    isLogin,
-    setIsLogin,
-    login,
-    isLoading,
-    setIsLoading,
-    navigate,
-    getFromAuthLocalId,
-    localIdFromAuth,
-  } = useContext(GlobalContexts);
+  const { isLogin, isLoading, setIsLoading, hasAccountOrNotHandler } =
+    useContext(GlobalContexts);
 
-  const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
+  const { login, navigate } = useContext(LoginContent);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -125,7 +112,7 @@ const LogIn = () => {
             <button
               type="button"
               className={classes.toggle}
-              onClick={switchAuthModeHandler}
+              onClick={hasAccountOrNotHandler}
             >
               {isLogin ? "Create new account" : "Login with existing account"}
             </button>

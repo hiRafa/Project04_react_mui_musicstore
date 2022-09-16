@@ -7,19 +7,19 @@ import { theme } from "./theme";
 import { GlobalCSSContextProvider } from "./components/context/globalCSS-context";
 import { GlobalContextsProvider } from "./components/context/global-contexts";
 import { BrowserRouter } from "react-router-dom";
-import { AuthContextProvider } from "./components/context/auth-context";
+import { LoginTokenProvider } from "./components/context/login-token-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <AuthContextProvider>
+      <LoginTokenProvider>
         <GlobalContextsProvider>
           <GlobalCSSContextProvider>
             <App />
           </GlobalCSSContextProvider>
         </GlobalContextsProvider>
-      </AuthContextProvider>
+      </LoginTokenProvider>
     </ThemeProvider>
   </BrowserRouter>
 );

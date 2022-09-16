@@ -18,6 +18,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ButtonSignin from "../Buttons/ButtonSignin";
 import ButtonSignup from "../Buttons/ButtonSignup";
+import LoginTokenContexts from "../context/login-token-context";
 
 const ToolBarCSS = styled(Toolbar)({
   display: "flex",
@@ -52,8 +53,9 @@ const Navbar = ({ theme }) => {
     screenSize,
     setScreenSize,
     setNavMenuRightOpen,
-    userIsLoggedIn,
   } = useContext(GlobalContexts);
+
+  const { userIsLoggedIn } = useContext(LoginTokenContexts);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

@@ -1,13 +1,11 @@
 import { useRef, useContext } from "react";
-
-import AuthContext from "../context/auth-context";
-import GlobalContexts from "../context/global-contexts";
+import LoginContent from "../context/login-token-context";
 import classes from "./Profile.module.css";
 
 const ProfileResetPass = () => {
   const newPasswordInputRef = useRef();
 
-  const { userToken, navigate } = useContext(GlobalContexts);
+  const { userToken, navigate, logout } = useContext(LoginContent);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -31,7 +29,8 @@ const ProfileResetPass = () => {
       }
     ).then((res) => {
       // assumption: Always succeeds!
-      navigate("/", { replace: true });
+      logout();
+      navigate("/login", { replace: true });
     });
   };
 

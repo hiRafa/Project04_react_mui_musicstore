@@ -14,10 +14,11 @@ import { NavLink } from "react-router-dom";
 import ButtonSignup from "../Buttons/ButtonSignup";
 import ButtonSignin from "../Buttons/ButtonSignin";
 import ButtonLogout from "../Buttons/ButtonLogout";
+import LoginTokenContexts from "../context/login-token-context";
 
 const NavBarMenuRight = () => {
-  const { navMenuRightOpen, setNavMenuRightOpen, userIsLoggedIn } =
-    useContext(GlobalContexts);
+  const { navMenuRightOpen, setNavMenuRightOpen } = useContext(GlobalContexts);
+  const { userIsLoggedIn } = useContext(LoginTokenContexts);
   // Profile state
 
   return (

@@ -1,9 +1,9 @@
 import { Button, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import GlobalContexts from "../context/global-contexts";
+import LoginContent from "../context/login-token-context";
 
 const ButtonLogout = () => {
-  const { logout } = useContext(GlobalContexts);
+  const { logout } = useContext(LoginContent);
 
   const logoutHandler = () => {
     logout();

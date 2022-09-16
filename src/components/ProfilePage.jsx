@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@mui/material";
 import BoxPages from "./ui/BoxPages";
-import GlobalContexts from "./context/global-contexts";
 import UserProfile from "./Profile/UserProfile";
 import { NavLink } from "react-router-dom";
+import LoginContent from "./context/login-token-context";
+import CardPost from "./InnerContent/CardPost";
 
 const ProfilePage = () => {
-  const { userIsLoggedIn } = useContext(GlobalContexts);
+  const { userIsLoggedIn, localIdFromAuth } = useContext(LoginContent);
 
   return (
     <BoxPages>

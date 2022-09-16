@@ -1,10 +1,11 @@
 import React, { useContext, useRef } from "react";
 import classes from "./Profile.module.css";
-import GlobalContexts from "../context/global-contexts";
 import { TextField } from "@mui/material";
+import LoginContent from "../context/login-token-context";
 
 const ProfileForm = () => {
-  const { localIdFromAuth, emailFromAuth } = useContext(GlobalContexts);
+  const { localIdFromAuth, emailFromAuth, navigate } = useContext(LoginContent);
+
   const nameInputRef = useRef();
   const surnameInputRef = useRef();
   const songInputRef = useRef();
@@ -33,7 +34,9 @@ const ProfileForm = () => {
           "Content-Type": "application/json",
         },
       }
-    ).then(() => {});
+    ).then(() => {
+      navigate("/", { replace: true });
+    });
   };
 
   return (
