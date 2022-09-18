@@ -5,17 +5,17 @@ import { useRef } from "react";
 import GlobalContexts from "./context/global-contexts";
 import BoxPages from "./ui/BoxPages";
 import classes from "./Signup.module.css";
-import LoginContent from "./context/login-token-context";
+import LoginTokenContexts from "./context/login-token-context";
 
 const LogIn = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   // const authCtx = useContext(AuthContext);
-  const { isLogin, isLoading, setIsLoading, hasAccountOrNotHandler } =
+  const { isLogin, isLoading, setIsLoading, hasAccountOrNotHandler, userInfo } =
     useContext(GlobalContexts);
 
-  const { login, navigate } = useContext(LoginContent);
+  const { login, navigate } = useContext(LoginTokenContexts);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -69,7 +69,7 @@ const LogIn = () => {
         );
         login(data.idToken, expirationTime.toISOString());
 
-        navigate("/", { replace: true });
+        navigate(userInfo ? "/" : "/profile", { replace: true });
 
         // replace true to avoid users going back to log in page.
       })

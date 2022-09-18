@@ -2,9 +2,12 @@ import React, { useContext, useRef } from "react";
 import classes from "./Profile.module.css";
 import { TextField } from "@mui/material";
 import LoginContent from "../context/login-token-context";
+import GlobalContexts from "../context/global-contexts";
 
 const ProfileForm = () => {
-  const { localIdFromAuth, emailFromAuth, navigate } = useContext(LoginContent);
+  const { navigate } = useContext(LoginContent);
+  const { localIdFromAuth, emailFromAuth, userKey } =
+    useContext(GlobalContexts);
 
   const nameInputRef = useRef();
   const surnameInputRef = useRef();
@@ -18,25 +21,33 @@ const ProfileForm = () => {
     const enteredSong = songInputRef.current.value;
 
     // fetch post to realtime database
-    fetch(
-      "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          // data.users[0].localId data format from authentication server
-          userId: localIdFromAuth,
-          userEmail: emailFromAuth,
-          name: enteredName,
-          surname: enteredSurname,
-          song: enteredSong,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then(() => {
-      navigate("/", { replace: true });
-    });
+    if (userKey) {
+    }
+    if (!userKey) {
+      fetch(
+        "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            // data.users[0].localId data format from authentication server
+            userId: localIdFromAuth,
+            userEmail: emailFromAuth,
+            name: enteredName,
+            surname: enteredSurname,
+            song: enteredSong,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() => {
+        fetch(
+          "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
+        ).then(() => {
+          navigate("/", { replace: true });
+        });
+      });
+    }
   };
 
   return (

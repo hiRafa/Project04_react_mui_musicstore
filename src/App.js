@@ -15,6 +15,7 @@ const ProfilePage = React.lazy(() => import("./components/ProfilePage"));
 const ShopsPage = React.lazy(() => import("./components/ShopsPage"));
 const FavoritesPage = React.lazy(() => import("./components/FavoritesPage"));
 const LogIn = React.lazy(() => import("./components/LogInPage"));
+const ProfileEdit = React.lazy(() => import("./components/ProfileEdit"));
 
 function App() {
   const { activeMenu, userIsLoggedIn, navigate } = useContext(GlobalContexts);
@@ -36,6 +37,8 @@ function App() {
             <Route path="/articles" element={<ArticlesPage />} />
 
             {!userIsLoggedIn && <Route path="/logIn" element={<LogIn />} />}
+
+            <Route path="/profileedit" element={<ProfileEdit />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

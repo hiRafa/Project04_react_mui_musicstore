@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
-import ButtonSignup from "../Buttons/ButtonSignup";
-import ButtonSignin from "../Buttons/ButtonSignin";
-import ButtonLogout from "../Buttons/ButtonLogout";
+import ButtonSignup from "../Custom/ButtonSignup";
+import ButtonSignin from "../Custom/ButtonSignin";
+import ButtonLogout from "../Custom/ButtonLogout";
 import LoginTokenContexts from "../context/login-token-context";
 
 const NavBarMenuRight = () => {

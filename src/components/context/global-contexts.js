@@ -1,11 +1,11 @@
 // import { Box, styled } from "@mui/material";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import LoginContent from "./login-token-context";
+import LoginTokenContexts from "./login-token-context";
 
 const GlobalContexts = createContext();
 
 export function GlobalContextsProvider(props) {
-  const { token, userIsLoggedIn } = useContext(LoginContent);
+  const { token, userIsLoggedIn } = useContext(LoginTokenContexts);
 
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
@@ -28,6 +28,7 @@ export function GlobalContextsProvider(props) {
   };
 
   // ----------- Getting Id and Email from authentication firebase (to set it to the database with personal info)
+
   const [localIdFromAuth, setLocalIdFromAuth] = useState();
   const [localEmailFromAuth, setEmailFromAuth] = useState();
 
@@ -57,28 +58,33 @@ export function GlobalContextsProvider(props) {
   }
 
   // ------- Check if the Auth ID corresponds to the ID in the database (if it does exist, or not)
-  const [userIdExists, setUserIdExists] = useState();
-  useEffect(() => {
+  // userInfo stores either false if it doesnt exist, or the user data if the user exists.
+  const [userInfo, setUserInfo] = useState();
+  const [userKey, setUserKey] = useState();
+
+  const fetchUserInfo = () => {
     if (userIsLoggedIn) {
       fetch(
         "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
       ).then((resp) => {
         // fetch get from authentication server, getting only the user corresponding to the current userToken
         resp.json().then((data) => {
-          // console.log(data);
           const doesExist = (obj, value) => {
             for (let key in obj) {
               if (obj[key].userId === value) {
-                return true;
+                return obj[key];
               }
             }
             return false;
           };
+          function getObjKey(obj, value) {
+            return Object.keys(obj).find((key) => obj[key].userId === value);
+          }
 
-          setUserIdExists(doesExist(data, localIdFromAuth));
-
+          setUserInfo(doesExist(data, localIdFromAuth));
+          setUserKey(getObjKey(data, localIdFromAuth));
           // check if it is returning true when logging in with an account that has data registered in the realtime database
-          // console.log(userIdExists);
+          // console.log(userInfo);
           // console.log(localIdFromAuth);
 
           // this expressions were returning true or false for each key
@@ -94,17 +100,16 @@ export function GlobalContextsProvider(props) {
         });
       });
     }
+    if (!userIsLoggedIn) {
+      setUserInfo();
+      setUserKey();
+    }
+  };
+  useEffect(() => {
+    fetchUserInfo();
   }, [userIsLoggedIn, localIdFromAuth]);
 
-  useEffect(() => {
-    if (userIsLoggedIn) {
-      fetch(
-        "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
-      ).then((resp) => {
-        resp.json().then((data) => {});
-      });
-    }
-  });
+  console.log(userKey);
 
   return (
     <GlobalContexts.Provider
@@ -123,13 +128,18 @@ export function GlobalContextsProvider(props) {
         isLoading,
         setIsLoading,
         hasAccountOrNotHandler,
-        userIdExists,
-        setUserIdExists,
+
+        userInfo,
+        setUserInfo,
+        userKey,
+        setUserKey,
 
         localIdFromAuth,
         setLocalIdFromAuth,
         localEmailFromAuth,
         setEmailFromAuth,
+
+        fetchUserInfo,
       }}
     >
       {props.children}
