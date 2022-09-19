@@ -6,7 +6,7 @@ import GlobalContexts from "../context/global-contexts";
 
 const ProfileForm = () => {
   const { navigate } = useContext(LoginContent);
-  const { localIdFromAuth, emailFromAuth, userKey } =
+  const { localIdFromAuth, emailFromAuth, userKey, fetchUserInfo } =
     useContext(GlobalContexts);
 
   const nameInputRef = useRef();
@@ -40,10 +40,9 @@ const ProfileForm = () => {
             "Content-Type": "application/json",
           },
         }
-      ).then(() => {
-        fetch(
-          "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
-        ).then(() => {
+      ).then((resp) => {
+        resp.json().then(() => {
+          fetchUserInfo();
           navigate("/", { replace: true });
         });
       });

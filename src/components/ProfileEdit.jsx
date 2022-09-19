@@ -17,6 +17,7 @@ import classes from "./Profile/Profile.module.css";
 import ProfileResetPass from "./Profile/ProfileResetPass";
 import TypoTitleForm from "./Custom/TypoTitleForm";
 import { Link, NavLink } from "react-router-dom";
+import ProfileDelete from "./Profile/ProfileDelete";
 
 const BoxCSS = styled(Box)({
   display: "flex",
@@ -96,7 +97,7 @@ const ProfileEdit = () => {
               <TypoTitleForm profilename={"Name"} />
               <TextFieldCSS
                 label="name"
-                input={userInfo.name}
+                input="name"
                 defaultValue={userInfo.name}
                 required
                 inputRef={nameRef}
@@ -113,6 +114,7 @@ const ProfileEdit = () => {
               <TextFieldCSS
                 label="surname"
                 input="surname"
+                defaultValue={userInfo.surname}
                 required
                 inputRef={surnameRef}
                 id="outlined-basic"
@@ -126,6 +128,7 @@ const ProfileEdit = () => {
               <TextFieldCSS
                 label="song"
                 input="song"
+                defaultValue={userInfo.song}
                 required
                 inputRef={songRef}
                 id="outlined-basic"
@@ -141,6 +144,7 @@ const ProfileEdit = () => {
           </Stack>
         </form>
       </Card>
+      <ProfileDelete />
       <ProfileResetPass />
     </BoxPages>
   );

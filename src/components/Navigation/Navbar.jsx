@@ -26,7 +26,7 @@ const ToolBarCSS = styled(Toolbar)({
   gap: "1rem",
 });
 
-const IconsBarCustomDesktop = styled(Box)(({ theme }) => ({
+const IconsBarCSSDesktop = styled(Box)(({ theme }) => ({
   display: "none",
   alignItems: "center",
   gap: "1rem",
@@ -101,24 +101,20 @@ const Navbar = ({ theme }) => {
         />
 
         <NavBarSearch></NavBarSearch>
-        <IconsBarCustomDesktop>
+        <IconsBarCSSDesktop>
           {cartBadge}
           {userIsLoggedIn ? (
-            <IconsBarCustomDesktop>
+            <IconsBarCSSDesktop onClick={(e) => setNavMenuRightOpen(true)}>
               <Typography>Welcome</Typography>
-              <Avatar
-                src=""
-                sx={{ width: 30, height: 30 }}
-                onClick={(e) => setNavMenuRightOpen(true)}
-              />
-            </IconsBarCustomDesktop>
+              <Avatar src="" sx={{ width: 30, height: 30 }} />
+            </IconsBarCSSDesktop>
           ) : (
-            <IconsBarCustomDesktop>
+            <IconsBarCSSDesktop>
               <ButtonSignup />
               <ButtonSignin />
-            </IconsBarCustomDesktop>
+            </IconsBarCSSDesktop>
           )}
-        </IconsBarCustomDesktop>
+        </IconsBarCSSDesktop>
 
         <IconsBarCustomMobile onClick={(e) => setNavMenuRightOpen(true)}>
           {cartBadge}
