@@ -5,8 +5,17 @@ import LoginTokenContexts from "./login-token-context";
 const GlobalContexts = createContext();
 
 export function GlobalContextsProvider(props) {
-  const { token, userIsLoggedIn } = useContext(LoginTokenContexts);
+  // ---------------------  Slider
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [modalIsOpen, setmodalIsOpen] = useState(false);
+  const closeModalHandler = () => {
+    setmodalIsOpen(false);
+  };
+  const openModalHandler = () => {
+    setmodalIsOpen(true);
+  };
 
+  // ---------------------  Menus and screen size
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
   const [navMenuRightOpen, setNavMenuRightOpen] = useState(false);
@@ -20,8 +29,10 @@ export function GlobalContextsProvider(props) {
   };
 
   // ----------- Login or Create Account
+  const { token, userIsLoggedIn } = useContext(LoginTokenContexts);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState();
+  const [httpError, setHttpError] = useState(null);
 
   const hasAccountOrNotHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -109,11 +120,57 @@ export function GlobalContextsProvider(props) {
     fetchUserInfo();
   }, [userIsLoggedIn, localIdFromAuth]);
 
-  console.log(userKey);
+  // console.log(userKey);
+  const [recentNewsArray, setrecentNewsArray] = useState();
+  useEffect(() => {
+    setIsLoading(true);
+    const fetch5RecentNews = async () => {
+      const response = await fetch(
+        "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/news.json"
+      ).then();
+
+      // check
+      if (!response.ok) {
+        throw new Error("Something is not right");
+      }
+
+      // Gather data
+      const responseData = await response.json();
+
+      // firebase sends an object, we have to change it to array here
+      const newsArray = [];
+      for (const key in responseData) {
+        newsArray.push({
+          id: key,
+          date: key,
+          title: responseData[key].title,
+          by: responseData[key].by,
+          description: responseData[key].description,
+          review: responseData[key].review,
+        });
+        console.log("number2");
+      }
+      setrecentNewsArray(newsArray); //setting the fetched data with useState
+      setIsLoading(false);
+      console.log("number3");
+    };
+    fetch5RecentNews().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+    console.log("number1");
+  }, []);
 
   return (
     <GlobalContexts.Provider
       value={{
+        currentIndex,
+        setCurrentIndex,
+        modalIsOpen,
+        setmodalIsOpen,
+        openModalHandler,
+        closeModalHandler,
+
         activeMenu,
         setActiveMenu,
         screenSize,
@@ -140,6 +197,7 @@ export function GlobalContextsProvider(props) {
         setEmailFromAuth,
 
         fetchUserInfo,
+        recentNewsArray,
       }}
     >
       {props.children}
