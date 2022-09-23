@@ -3,7 +3,7 @@ import React from "react";
 
 const BoxPages = (props) => {
   return (
-    <Box flex={4} bgcolor={"pink"} p={2} sx={{ height: "100%" }}>
+    <Box flex={4} bgcolor={"pink"} p={2} sx={{ height: "100%", with: "100vw" }}>
       {props.children}
     </Box>
   );

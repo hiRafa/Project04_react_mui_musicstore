@@ -4,7 +4,7 @@ import BoxPages from "./ui/BoxPages";
 import UserProfile from "./Profile/UserProfile";
 import { NavLink } from "react-router-dom";
 import LoginContent from "./context/login-token-context";
-import CardPost from "./InnerContent/CardPost";
+import CardPost from "./ui/CardPost";
 import GlobalContexts from "./context/global-contexts";
 
 const ProfilePage = () => {

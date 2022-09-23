@@ -1,12 +1,14 @@
 import { Box } from "@mui/material";
 import * as React from "react";
 import GlobalContexts from "./context/global-contexts";
-import CardPost from "./InnerContent/CardPost";
-import NewsBackdrop from "./InnerContent/NewsBackdrop";
-import NewsModal from "./InnerContent/NewsModal";
-import NewsModalContent from "./InnerContent/NewsModalContent";
-import NewsSlider from "./InnerContent/NewsSlider";
+import NewsBackdrop from "./Homepage/NewsBackdrop";
+import NewsModal from "./Homepage/NewsModal";
+import NewsModalContent from "./Homepage/NewsModalContent";
+import NewsSlider from "./Homepage/NewsSlider";
+import CardPost from "./ui/CardPost";
 import BoxPages from "./ui/BoxPages";
+import Section from "./ui/Section";
+import Products from "./Homepage/Products";
 
 const HomePage = () => {
   const { modalIsOpen, closeModalHandler } = React.useContext(GlobalContexts);
@@ -20,7 +22,7 @@ const HomePage = () => {
       )}
       {modalIsOpen && <NewsBackdrop onCancel={closeModalHandler} />}
 
-      <section>
+      <Section>
         <Box
           sx={{
             width: "400px",
@@ -32,15 +34,10 @@ const HomePage = () => {
         >
           <NewsSlider />
         </Box>
-      </section>
-      <Box sx={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-        <CardPost />
-      </Box>
+      </Section>
+      <Section>
+        <Products />
+      </Section>
     </BoxPages>
   );
 };

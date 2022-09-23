@@ -1,10 +1,6 @@
 .sliderContainer {
-  height: 100%;
   width: 100%;
   position: relative;
-  background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
   padding: 3% 0;
   display: flex;
   flex-direction: column;
@@ -12,12 +8,16 @@
 }
 
 .arrow_base {
+  height: 1%;
   position: relative;
   top: 50%;
   font-size: 45px;
   color: black;
   z-index: 1;
   cursor: pointer;
+}
+.arrow_base:hover {
+  color: purple;
 }
 .arrow_left {
   left: -25px;
@@ -27,8 +27,6 @@
 }
 
 .slideCSS {
-  height: 85%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -37,49 +35,38 @@
   position: relative;
 }
 
+.slideTopBlank {
+  height: 5%;
+}
+
 .slideTopCSS {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
   width: 100%;
-  height: 85%;
+  height: 90%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 10px;
   overflow: hidden;
   cursor: pointer;
+}
+.slideTopCSS:hover {
+  background-color: purple;
+  color: white;
 }
 
 .slideImageCSS {
   width: 100%;
-  height: 90%;
-  background-position: center;
-  background-size: cover;
-}
-
-.slide0CSS {
-  background-image: url("./image-1.jpg");
-}
-
-.slide1CSS {
-  background-image: url("./image-2.jpg");
-}
-
-.slide2CSS {
-  background-image: url("./image-3.jpg");
-}
-
-.slide3CSS {
-  background-image: url("./image-4.jpg");
-}
-
-.slide4CSS {
-  background-image: url("./image-5.jpg");
+  height: 100%;
 }
 
 .slideTitleCSS {
   padding: 0 5%;
   font-size: 1.2rem;
   overflow: hidden;
-  height: 10%;
+  height: 20%;
   text-align: center;
 }
 
@@ -90,6 +77,17 @@
   justify-content: space-evenly;
 }
 
+.dotIcon {
+  font-size: 1.5rem;
+  margin: 0 3px;
+  cursor: pointer;
+}
+.dotIcon:hover {
+  color: purple;
+}
+
+/* ------------------------------------------------------------------ */
+/* ----------  Modal  */
 .modal {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
@@ -111,4 +109,20 @@
   height: 100vh;
   top: 0;
   left: 0;
+}
+
+.modal_top {
+  display: flex;
+  height: 20%;
+}
+
+.modal_topImage {
+  width: 80%;
+  height: 100%;
+}
+
+.modal_topRight {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
