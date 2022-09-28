@@ -6,7 +6,6 @@ import Navbar from "./components/Navigation/Navbar";
 import HomePage from "./components/HomePage";
 
 import GlobalContexts from "./components/context/global-contexts";
-import classes from "./App.module.css";
 
 import { Box, Stack } from "@mui/material";
 
@@ -23,7 +22,7 @@ function App() {
   return (
     <Box sx={{ height: "100vh" }}>
       <Navbar />
-      <Stack direction="row" className={classes.stack}>
+      <Stack direction="row" className={"stack"}>
         {activeMenu ? <Sidebar /> : ""}
         {/* to use lazy loading and improve loading performances */}
         <Suspense fallback={<div>Loading...</div>}>

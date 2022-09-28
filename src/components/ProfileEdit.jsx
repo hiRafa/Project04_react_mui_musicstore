@@ -25,18 +25,12 @@ const BoxCSS = styled(Box)({
   alignContent: "flex-end",
 });
 
-const TypoTitleCSS = styled(Typography)({
-  flex: 1,
-  padding: ".5rem",
-});
-
 const TextFieldCSS = styled(TextField)({
   flex: 3,
 });
 
 const ProfileEdit = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const { userInfo, userKey, localIdFromAuth, fetchUserInfo, setUserInfo } =
+  const { userInfo, userKey, localIdFromAuth, fetchUserInfo } =
     useContext(GlobalContexts);
   const { navigate } = useContext(LoginTokenContexts);
 

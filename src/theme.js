@@ -4,21 +4,25 @@ export const theme = createTheme({
   palette: {
     //purple theme
     primary: {
-      main: "#3F33B3",
-      dark: "#1B1266",
-      light: "#6E61FF",
+      main: "#3F31A3",
+      dark: "#0F0A33",
+      light: "#7260F7",
     },
     //yellow
     secondary: {
-      main: "#FFDD14",
-      light: "#FFE447",
-      dark: "#6E5F09",
+      main: "#F7DD39",
+      dark: "#FFE77F",
+      light: "#534B19",
     },
     whiteTheme: {
       main: "#fff",
     },
     blackTheme: {
       main: "#000",
+    },
+    greyTheme: {
+      main: "#808080",
+      light: "#D4D4D4",
     },
   },
 

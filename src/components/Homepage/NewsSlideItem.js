@@ -13,8 +13,7 @@ const NewsSlideItem = () => {
     useContext(GlobalContexts);
 
   // -------- CSS
-  let slideImageNumberCSS;
-  let alt;
+
   const imageNumber = () => {
     if (currentIndex === 0) {
       return image00;
@@ -45,7 +44,7 @@ const NewsSlideItem = () => {
 
   return (
     <Fragment>
-      <div className={`${classes.slideTopCSS}`} onClick={openModalHandler}>
+      <div className={`${classes.slideCSS}`} onClick={openModalHandler}>
         <div className={classes.slideTopBlank}></div>
         <img
           src={imageNumber()}
@@ -59,7 +58,9 @@ const NewsSlideItem = () => {
         {slides.map((slide, slideIndex) => (
           <p
             key={slideIndex}
-            className={classes.dotIcon}
+            className={`${classes.dotIcon} ${
+              currentIndex === slideIndex ? classes.dotIconActive : ""
+            }`}
             onClick={() => goToSlide(slideIndex)}
           >
             ♪

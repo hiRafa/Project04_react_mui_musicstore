@@ -9,9 +9,13 @@ import image01 from "./image-2.jpg";
 import image02 from "./image-3.jpg";
 import image03 from "./image-4.jpg";
 import image04 from "./image-5.jpg";
+import { Fragment } from "react";
+import ArrowRight from "./ArrowRight";
+import ArrowLeft from "./ArrowLeft";
 
 const NewsModalContent = () => {
-  const { currentIndex, recentNewsArray } = useContext(GlobalContexts);
+  const { currentIndex, recentNewsArray, setCurrentIndex } =
+    useContext(GlobalContexts);
 
   // -------- CSS
   const imageNumber = () => {
@@ -39,18 +43,24 @@ const NewsModalContent = () => {
   let newsReview = recentNewsArray[currentIndex].review;
 
   return (
-    <Box sx={{ display: " flex", flexDirection: "column" }}>
-      <div className={classes.modal_top}>
-        <img src={imageNumber()} className={`${classes.modal_topImage}`} />
-        <div className={classes.modal_topRight}>
-          <Typography variant="h5">{newsTitle}</Typography>
-          <Typography variant="p2">{newsBy}</Typography>
+    <Fragment>
+      <Box className={classes.modal_content}>
+        <div className={classes.modal_top}>
+          <img src={imageNumber()} className={`${classes.modal_topImage}`} />
+          <div className={classes.modal_topRight}>
+            <Typography variant="h5">{newsTitle}</Typography>
+            <Typography variant="p2">{newsBy}</Typography>
+          </div>
         </div>
-      </div>
-      <Typography variant="p2">{newsReview}</Typography>
-      <ButtonClose txt="♥"></ButtonClose>
-      <ButtonClose txt="Close"></ButtonClose>
-    </Box>
+        <Typography variant="p2">{newsReview}</Typography>
+        <div className={classes.modal_arrows}>
+          <ArrowLeft />
+          <ButtonClose txt="♥"></ButtonClose>
+          <ButtonClose txt="Close"></ButtonClose>
+          <ArrowRight />
+        </div>
+      </Box>
+    </Fragment>
   );
 };
 

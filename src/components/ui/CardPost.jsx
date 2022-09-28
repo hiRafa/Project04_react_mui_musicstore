@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useContext } from "react";
 import {
   styled,
   Card,
@@ -6,122 +6,129 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Collapse,
-  Avatar,
   IconButton,
   Typography,
   Checkbox,
 } from "@mui/material";
 
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 
-import { red } from "@mui/material/colors";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { theme } from "../../theme";
+import GlobalContexts from "../context/global-contexts";
+import { useState } from "react";
+import ReactPaginate from "react-paginate";
+import classes from "./ui.module.css";
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
+const label = { inputProps: { "aria-label": "Checkbox " } };
+const CardCSS = styled(Card)({
+  width: 300,
+  height: "100%",
+  maxHeight: 600,
+});
+const CardContentCSS = styled(CardContent)({
+  maxHeight: "20%",
+  overflow: "hidden",
+});
+const CheckboxCSS = styled(Checkbox)({
+  color: `${theme.palette.greyTheme.main}`,
+  ":hover": {
+    color: `${theme.palette.secondary.main}`,
+    cursor: "pointer",
+    transition: "all 0.25s linear",
+  },
+});
+const CardActionsCSS = styled(CardActions)({
+  display: "flex",
+  justifyContent: "space-between",
+});
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+const CardPost = (props) => {
+  const { productsArray } = useContext(GlobalContexts);
+  const [pageNumber, setPageNumber] = useState(0);
 
-const CardPost = () => {
-  const [expanded, setExpanded] = React.useState(false);
+  // Capitalize first letter of every word for titles and subtitles
+  let capitalizeArr;
+  const capitalizeFunction = (txt) => {
+    capitalizeArr = txt.split(" ");
+    for (let i = 0; i < capitalizeArr.length; i++) {
+      capitalizeArr[i] =
+        capitalizeArr[i].charAt(0).toUpperCase() + capitalizeArr[i].slice(1);
+    }
+    return (txt = capitalizeArr.join(" "));
+  };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  // Capitalize first letter for paragraph
+  const capitalize1Letter = (txt) => {
+    return txt.charAt(0).toUpperCase() + txt.slice(1);
+  };
+
+  // Mapping over productsArray data creating a card for each produt
+  // const productCard = productsArray.map((product) => (
+  const productsPerPage = 4;
+  const totalOfProductsTilPerviousPage = pageNumber * productsPerPage;
+
+  const displayCurrentProducts = productsArray
+    .slice(
+      totalOfProductsTilPerviousPage,
+      totalOfProductsTilPerviousPage + productsPerPage
+    )
+    .map((product) => (
+      <CardCSS key={product.id}>
+        <CardHeader
+          title={capitalizeFunction(product.name)}
+          subheader={capitalize1Letter(product.type)}
+        />
+        <Typography p="0 1rem 1rem">{product.price}</Typography>
+        <CardMedia
+          component="img"
+          height="194"
+          alt={productsArray.type}
+          src={`${product.img}`}
+        />
+        <CardContentCSS>
+          <Typography variant="body2">
+            {capitalize1Letter(product.description)}
+          </Typography>
+        </CardContentCSS>
+        <CardActionsCSS disableSpacing>
+          <div>
+            <CheckboxCSS
+              {...label}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+            />
+          </div>
+          <IconButton aria-label="add to cart">
+            <AddShoppingCartRoundedIcon sx={{ fontSize: "2rem" }} />
+          </IconButton>
+        </CardActionsCSS>
+      </CardCSS>
+    ));
+
+  // round up the equation result with Math.ceil. and Math.floor rounds down.
+  const pageCount = Math.ceil(productsArray.length / productsPerPage);
+
+  // destructuring ReactPaginate because this function will be called inside ReactPaginate Component ↓ and get the "selected"
+  const changePageHandler = ({ selected }) => {
+    setPageNumber(selected);
   };
 
   return (
-    <Card sx={{ minWidth: 300, maxWidth: 345, marginBottom: 4 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        title="Prestigious Hawaian Ukulele Review"
-        subheader="September, 2022. By Phillip Phillips"
+    <Fragment>
+      {displayCurrentProducts}
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        pageCount={pageCount}
+        onPageChange={changePageHandler}
+        containerClassName={classes.paginationButtons}
+        previousLinkClassName={classes.paginationPreviousButton}
+        nextLinkClassName={classes.paginationNextButton}
+        disabledClassName={classes.paginationDisabled}
+        activeClassName={classes.paginationActive}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        alt="Hawaian Ukulele"
-        src="https://store.mpc-web.jp/ukulelecolors/upload/save_image/20200728234150_ukulele%20concert%2014f%20std%20Hawaiian%20koaBirds%20eye%20Maple%20(2).jpg"
-      />
-      <CardContent sx={{ height: 100, overflow: "scroll" }}>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like. Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Excepturi quasi at earum, natus repellat nisi autem
-          possimus nam cumque vero delectus blanditiis accusantium reiciendis
-          commodi recusandae minus est! Odio, cum. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Quas adipisci, minima, vel modi deleniti
-          assumenda qui magni vero, possimus quidem doloribus! Eligendi sit
-          aliquid ut dolor! Voluptatibus ex facere sequi!
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <div>
-          <Checkbox
-            {...label}
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite />}
-          />
-          <Checkbox
-            {...label}
-            icon={<BookmarkBorderIcon />}
-            checkedIcon={<BookmarkIcon />}
-          />
-        </div>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. (Discard any mussels that don&apos;t
-            open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+    </Fragment>
   );
 };
 

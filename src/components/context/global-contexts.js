@@ -1,4 +1,5 @@
 // import { Box, styled } from "@mui/material";
+import { type } from "@testing-library/user-event/dist/type";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import LoginTokenContexts from "./login-token-context";
 
@@ -6,6 +7,7 @@ const GlobalContexts = createContext();
 
 export function GlobalContextsProvider(props) {
   // ---------------------  Slider
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalIsOpen, setmodalIsOpen] = useState(false);
   const closeModalHandler = () => {
@@ -68,7 +70,8 @@ export function GlobalContextsProvider(props) {
     });
   }
 
-  // ------- Check if the Auth ID corresponds to the ID in the database (if it does exist, or not)
+  // --------------------------- Fetch users and ↓↓↓
+  // ---------- Check if the Auth ID corresponds to the ID in the database (if it does exist, or not)
   // userInfo stores either false if it doesnt exist, or the user data if the user exists.
   const [userInfo, setUserInfo] = useState();
   const [userKey, setUserKey] = useState();
@@ -119,8 +122,10 @@ export function GlobalContextsProvider(props) {
   useEffect(() => {
     fetchUserInfo();
   }, [userIsLoggedIn, localIdFromAuth]);
-
   // console.log(userKey);
+
+  // --------------------------- Fetch the recent NEWS array for the home page
+
   const [recentNewsArray, setrecentNewsArray] = useState();
   useEffect(() => {
     setIsLoading(true);
@@ -138,9 +143,9 @@ export function GlobalContextsProvider(props) {
       const responseData = await response.json();
 
       // firebase sends an object, we have to change it to array here
-      const newsArray = [];
+      const arrayHelper = [];
       for (const key in responseData) {
-        newsArray.push({
+        arrayHelper.push({
           id: key,
           date: key,
           title: responseData[key].title,
@@ -150,7 +155,7 @@ export function GlobalContextsProvider(props) {
         });
         console.log("number2");
       }
-      setrecentNewsArray(newsArray); //setting the fetched data with useState
+      setrecentNewsArray(arrayHelper); //setting the fetched data with useState
       setIsLoading(false);
       console.log("number3");
     };
@@ -161,9 +166,118 @@ export function GlobalContextsProvider(props) {
     console.log("number1");
   }, []);
 
+  // --------------------------- Fetch the PRODUTS for the home page and favorites page
+  const [productsArray, setProductsArray] = useState();
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchProducts = async () => {
+      const response = await fetch(
+        "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/products2.json"
+      ).then();
+
+      if (!response.ok) {
+        throw new Error("Something is not right");
+      }
+
+      const responseData = await response.json();
+
+      // console.log(responseData);
+
+      const helperArray = [];
+      Object.keys(responseData).forEach((key) => {
+        //   console.log(key); // printing all key of objects on first level
+        //   console.log(responseData[key]); // printing all objects on first level
+        if (
+          typeof responseData[key] === "object" &&
+          responseData[key] !== null
+        ) {
+          // just to make sure that we are getting everything that is an object and not null from our responseData from the most upper level to the deepest nested level.
+          Object.keys(responseData[key]).forEach((nestedKey) => {
+            // console.log(nestedKey); // printing all keys of objects on second level.
+            // console.log(responseData[key][nestedKey]); // printing all nested objects on second level.
+            helperArray.push({
+              id: nestedKey,
+              type: key,
+              name: responseData[key][nestedKey].name,
+              description: responseData[key][nestedKey].description,
+              price: responseData[key][nestedKey].price,
+              img: responseData[key][nestedKey].img,
+            });
+          });
+        }
+      });
+      console.log(helperArray);
+
+      setProductsArray(helperArray);
+      setIsLoading(false);
+
+      // ------------------ Main code attempt 1, problem: itwas generating an object for each upper level key "pianos", "guitars" categories.
+      // And I was not able to assign the upper level key as a type key:value to each instrument object.
+
+      // const helperArray = [];
+      // const iterate = (obj) => {
+      //   Object.keys(obj).forEach((key) => {
+      //     // console.log(`${key}: ${obj[key]}`);
+      //     if (typeof obj[key] === "object" && obj[key] !== null) {
+      //       helperArray.push({
+      //         id: key,
+      //         type: Object.keys(obj)[key],
+      //         name: obj[key].name,
+      //         description: obj[key].description,
+      //         price: obj[key].price,
+      //       });
+      //       iterate(obj[key]);
+      //     }
+      //   });
+      // };
+      // iterate(responseData);
+      // console.log(helperArray);
+      // this loop generates an array with all objects, bt the problem is that main keys "pianos", "ocarinas", etc, they also get an empty object
+      // only with id, so we need to remove them. ↓↓
+
+      // Creating a new array using the same condition for the filter. We know that the name and other properties for object "guitars", 'pianos' and
+      // other main keys are empty looking at the console log. so we just filter by removing the objects with undefined properties
+      // let filteredHelperArray;
+      // const findIndex = () => {
+      //   filteredHelperArray = helperArray.filter((object) => {
+      //     return object.name !== undefined;
+      //   });
+      //   helperArray.splice(filteredHelperArray, 1);
+      // };
+      // findIndex();
+      // console.log(filteredHelperArray);
+
+      // Mutating the original Array with findIndex and splice.
+      // The findIndex method returns -1 if the condition is never satisfied.
+      // If we pass -1 as a start index to the splice method, it would remove the last element from the array, which would be a bug in our program.
+      // If this is a possible scenario in your code, use the filter() method from the next example. https://bobbyhadz.com/blog/javascript-remove-object-from-array-by-value
+      // let indexOfObject;
+      // const findIndex = (idValue) => {
+      //   indexOfObject = helperArray.findIndex((object) => {
+      //     return object.id === idValue;
+      //   });
+      //   helperArray.splice(indexOfObject, 1);
+      // };
+      // findIndex("guitars");
+      // findIndex("pianos");
+      // findIndex("ocarinas");
+      // console.log(helperArray);
+      // setProductsArray(helperArray);
+
+      // setProductsArray(filteredHelperArray);
+      // setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+  }, []);
+
   return (
     <GlobalContexts.Provider
       value={{
+        currentPage,
+        setCurrentPage,
         currentIndex,
         setCurrentIndex,
         modalIsOpen,
@@ -198,6 +312,7 @@ export function GlobalContextsProvider(props) {
 
         fetchUserInfo,
         recentNewsArray,
+        productsArray,
       }}
     >
       {props.children}

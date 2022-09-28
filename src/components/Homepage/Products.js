@@ -1,31 +1,30 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { Fragment, useContext } from "react";
+import GlobalContexts from "../context/global-contexts";
 import CardPost from "../ui/CardPost";
-import classes from "./Products.module.css";
 
-const Products = () => {
+const Products = (props) => {
+  const { productsArray } = useContext(GlobalContexts);
+
   return (
-    <Box
-      sx={{
-        width: "400px",
-        margin: "0 auto",
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-    </Box>
+    <Fragment>
+      {productsArray ? (
+        <Box
+          sx={{
+            width: "90%",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "2rem",
+          }}
+        >
+          <CardPost />
+        </Box>
+      ) : (
+        ""
+      )}
+    </Fragment>
   );
 };
 

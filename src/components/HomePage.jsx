@@ -5,13 +5,16 @@ import NewsBackdrop from "./Homepage/NewsBackdrop";
 import NewsModal from "./Homepage/NewsModal";
 import NewsModalContent from "./Homepage/NewsModalContent";
 import NewsSlider from "./Homepage/NewsSlider";
-import CardPost from "./ui/CardPost";
 import BoxPages from "./ui/BoxPages";
 import Section from "./ui/Section";
 import Products from "./Homepage/Products";
+import ProductsPagination from "./tests-and-fails/ProductsPagination";
+import { useContext } from "react";
+import ReactPaginate from "react-paginate";
 
 const HomePage = () => {
-  const { modalIsOpen, closeModalHandler } = React.useContext(GlobalContexts);
+  const { modalIsOpen, closeModalHandler, currentPage, setCurrentPage } =
+    useContext(GlobalContexts);
 
   return (
     <BoxPages>
@@ -37,6 +40,12 @@ const HomePage = () => {
       </Section>
       <Section>
         <Products />
+        {/* <ProductsPagination
+          currentPage={currentPage}
+          itemsTotal={55}
+          itemsOnPage={5}
+          onPageChange={(page) => setCurrentPage(page)}
+        /> */}
       </Section>
     </BoxPages>
   );

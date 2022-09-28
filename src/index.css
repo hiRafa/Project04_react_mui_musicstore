@@ -1,15 +1,18 @@
+:root {
+  --color-primary-main: #3f31a3;
+  --color-primary-dark: #0f0a33;
+  --color-primary-light: #7260f7;
+  --color-seconday-main: #f7dd39;
+  --color-seconday-dark: #534b19;
+  --color-seconday-light: #ffe77f;
+}
+
 * {
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
 
-/* .hideOnMobile {
-  display: none;
+.stack {
+  gap: 0.5rem;
+  justify-content: space-between;
 }
-
-@media screen and (min-width: 600px) {
-  .hideOnMobile {
-    display: block;
-  }
-} */
-

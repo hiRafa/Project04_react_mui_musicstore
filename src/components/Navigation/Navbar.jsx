@@ -84,7 +84,7 @@ const Navbar = ({ theme }) => {
   );
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="fixed">
       <ToolBarCSS>
         <Typography
           variant="h6"

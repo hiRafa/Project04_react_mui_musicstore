@@ -1,0 +1,62 @@
+/* .products {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+    justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+} */
+
+/* Changed to normal CSS because I was having a hard time to integrate css modules with classNames library
+https://www.npmjs.com/package/classnames */
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  border-radius: 0.25rem;
+  list-style: none;
+  margin: 0 auto;
+  justify-content: center;
+}
+.page_item {
+  display: inline;
+}
+/* .page-item:first-child {
+  margin-left: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+.page-item:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+} */
+.page_link {
+  position: relative;
+  float: left;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  color: #3f33b3;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.page_link:focus,
+.page_link:hover {
+  color: #3f33b3;
+  background-color: #ffe447;
+  border-color: #ddd;
+}
+
+.active {
+  z-index: 2;
+  color: #ffe447;
+  cursor: default;
+  background-color: #3f33b3;
+  border-color: #3f33b3;
+}
+.disabled {
+  color: #818a91;
+  background-color: #fff;
+  border-color: #ddd;
+}
