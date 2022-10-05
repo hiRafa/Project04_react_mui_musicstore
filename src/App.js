@@ -8,16 +8,19 @@ import HomePage from "./components/HomePage";
 import GlobalContexts from "./components/context/global-contexts";
 
 import { Box, Stack } from "@mui/material";
+import LoginTokenContexts from "./components/context/login-token-context";
 
 const ArticlesPage = React.lazy(() => import("./components/ArticlesPage"));
 const ProfilePage = React.lazy(() => import("./components/ProfilePage"));
 const ShopsPage = React.lazy(() => import("./components/ShopsPage"));
 const FavoritesPage = React.lazy(() => import("./components/FavoritesPage"));
-const LogIn = React.lazy(() => import("./components/LogInPage"));
-const ProfileEdit = React.lazy(() => import("./components/ProfileEdit"));
+const LogInPage = React.lazy(() => import("./components/LogInPage"));
+const ProfileEdit = React.lazy(() => import("./components/ProfileEditPage"));
+const CartPage = React.lazy(() => import("./components/CartPage"));
 
 function App() {
-  const { activeMenu, userIsLoggedIn, navigate } = useContext(GlobalContexts);
+  const { activeMenu } = useContext(GlobalContexts);
+  const { userIsLoggedIn } = useContext(LoginTokenContexts);
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -34,10 +37,12 @@ function App() {
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/shops" element={<ShopsPage />} />
             <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/cart" element={<CartPage />} />
 
-            {!userIsLoggedIn && <Route path="/logIn" element={<LogIn />} />}
-
-            <Route path="/profileedit" element={<ProfileEdit />} />
+            {!userIsLoggedIn && <Route path="/logIn" element={<LogInPage />} />}
+            {userIsLoggedIn && (
+              <Route path="/profileedit" element={<ProfileEdit />} />
+            )}
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

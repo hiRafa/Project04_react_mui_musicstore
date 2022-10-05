@@ -1,10 +1,15 @@
 :root {
   --color-primary-main: #3f31a3;
+  --color-primary-transparency: #3e31a330;
   --color-primary-dark: #0f0a33;
   --color-primary-light: #7260f7;
   --color-seconday-main: #f7dd39;
+  --color-seconday-transparency: #f7de390a;
   --color-seconday-dark: #534b19;
   --color-seconday-light: #ffe77f;
+  --color-white: #fff;
+
+  --borderRadius: 2rem;
 }
 
 * {
@@ -15,4 +20,9 @@
 .stack {
   gap: 0.5rem;
   justify-content: space-between;
+}
+
+.articlesPage {
+  width: 50%;
+  height: 50%;
 }

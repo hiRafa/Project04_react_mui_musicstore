@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 // import SideBarItem from "./SideBarItem";
 
@@ -9,10 +9,8 @@ import {
   ListItemText,
   FormControlLabel,
   Switch,
-  Button,
 } from "@mui/material";
 
-import DraftsIcon from "@mui/icons-material/Drafts";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -55,51 +53,55 @@ const menuItems = [
 ];
 
 const SideBarList = (props) => {
-  const { navMenuSelectedIndex, handleNavItemClick, userId } =
-    useContext(GlobalContexts);
-  // const handleListItemClick = (event, index) => {
-  //   setNavMenuSelectedIndex(index);
-  // };
+  const {
+    navMenuSelectedIndex,
+    setNavMenuSelectedIndex,
+    activeMenu,
+    setActiveMenu,
+  } = useContext(GlobalContexts);
+
+  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+  const handleListItemClick = (event, index) => {
+    setNavMenuSelectedIndex(index);
+    handleActiveMenu();
+  };
 
   const eachItem = menuItems.map((item) => (
-    <NavLink to={`${item.menuItemNav}`} key={item.menuItemID}>
+    <NavLink
+      to={`${item.menuItemNav}`}
+      key={item.menuItemID}
+      className="navLink"
+    >
       <ListItemButton
         selected={navMenuSelectedIndex === `${item.menuItemID}`}
-        onClick={(event) => handleNavItemClick(event, `${item.menuItemID}`)}
+        onClick={(event) => handleListItemClick(event, `${item.menuItemID}`)}
       >
-        <ListItemIcon>{item.icon}</ListItemIcon>
-        <ListItemText primary={`${item.menuItemTxt}`} />
+        <ListItemIcon sx={{ color: "var(--color-seconday-light)" }}>
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText
+          primary={`${item.menuItemTxt}`}
+          sx={{ color: "var(--color-seconday-light)" }}
+        />
       </ListItemButton>
     </NavLink>
   ));
 
+  // const itemDarkMode = (
+  //   <ListItemButton
+  //     selected={navMenuSelectedIndex === 10}
+  //     onClick={(event) => handleNavItemClick(event, 10)}
+  //   >
+  //     <ListItemIcon>
+  //       <NightsStayIcon sx={{ color: "var(--color-seconday-light)" }} />
+  //     </ListItemIcon>
+
+  //     <FormControlLabel control={<Switch defaultChecked />} label="Dark Mode" />
+  //   </ListItemButton>
+  // );
   return (
     <List component="nav" aria-label="main mailbox folders">
       {eachItem}
-      {/* {menuItems.map((item) => (
-        <SideBarItem
-          menuItemNav={item.menuItemNav}
-          menuItemID={item.menuItemID}
-          menuItemTxt={item.menuItemTxt}
-          key={item.menuItemID}
-          // selectedIndexProps={selectedIndex}
-          // functionF={handleListItemClick} 
-          // failed, couldnt pass the function and the state through props
-        />
-      ))} */}
-      <ListItemButton
-        selected={navMenuSelectedIndex === 10}
-        onClick={(event) => handleNavItemClick(event, 10)}
-      >
-        <ListItemIcon>
-          <NightsStayIcon />
-        </ListItemIcon>
-
-        <FormControlLabel
-          control={<Switch defaultChecked />}
-          label="Dark Mode"
-        />
-      </ListItemButton>
     </List>
   );
 };

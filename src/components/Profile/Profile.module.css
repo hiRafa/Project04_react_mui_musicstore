@@ -1,7 +1,10 @@
 .form {
   width: 95%;
-  max-width: 25rem;
+  max-width: 50rem;
   margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .control {
@@ -25,25 +28,6 @@
   background-color: #f7f0fa;
 }
 
-.action {
-  margin-top: 1.5rem;
-}
-
-.action button {
-  font: inherit;
-  cursor: pointer;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  background-color: #38015c;
-  color: white;
-  border: 1px solid #38015c;
-}
-
-.action button:hover {
-  background-color: #540d83;
-  border-color: #540d83;
-}
-
 .profile {
   margin: 3rem auto;
   text-align: center;
@@ -51,4 +35,10 @@
 
 .profile h1 {
   font-size: 5rem;
+}
+
+.sectionButtonsDelete {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }

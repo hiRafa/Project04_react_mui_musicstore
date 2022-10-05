@@ -10,7 +10,7 @@
 /* Changed to normal CSS because I was having a hard time to integrate css modules with classNames library
 https://www.npmjs.com/package/classnames */
 
-.pagination {
+/* .pagination {
   display: flex;
   padding-left: 0;
   border-radius: 0.25rem;
@@ -20,7 +20,7 @@ https://www.npmjs.com/package/classnames */
 }
 .page_item {
   display: inline;
-}
+} */
 /* .page-item:first-child {
   margin-left: 0;
   border-bottom-left-radius: 0.25rem;
@@ -30,12 +30,12 @@ https://www.npmjs.com/package/classnames */
   border-bottom-right-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 } */
-.page_link {
+/* .page_link {
   position: relative;
   float: left;
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
-  color: #3f33b3;
+  color: var(--color-primary-main);
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -43,8 +43,8 @@ https://www.npmjs.com/package/classnames */
 }
 .page_link:focus,
 .page_link:hover {
-  color: #3f33b3;
-  background-color: #ffe447;
+  color: var(--color-primary-main);
+  background-color: var(--color-primary-main);
   border-color: #ddd;
 }
 
@@ -59,4 +59,4 @@ https://www.npmjs.com/package/classnames */
   color: #818a91;
   background-color: #fff;
   border-color: #ddd;
-}
+} */

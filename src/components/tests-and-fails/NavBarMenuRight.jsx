@@ -1,16 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import GlobalContexts from "../context/global-contexts";
 
-import {
-  Box,
-  Button,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-import { Logout } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { Box, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import ButtonSignup from "../Custom/ButtonSignup";
 import ButtonSignin from "../Custom/ButtonSignin";
 import ButtonLogout from "../Custom/ButtonLogout";
@@ -31,7 +22,7 @@ const NavBarMenuRight = () => {
         sx: {
           overflow: "visible",
           filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-          bgcolor: "black",
+          bgcolor: "var(--color-primary-main)",
           mt: 1.5,
           "& .MuiAvatar-root": {
             width: 32,
@@ -53,14 +44,8 @@ const NavBarMenuRight = () => {
         </MenuItem>
       ) : (
         <Box>
-          <MenuItem>
-            <ButtonSignup sx={{ bgcolor: "black" }} />
-          </MenuItem>
-          <MenuItem>
-            <NavLink to="/signup">
-              <ButtonSignin sx={{ bgcolor: "black" }} />
-            </NavLink>
-          </MenuItem>
+          <ButtonSignup />
+          <ButtonSignin />
         </Box>
       )}
     </Menu>

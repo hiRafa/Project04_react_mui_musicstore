@@ -1,24 +1,19 @@
 import { React, useContext, useEffect } from "react";
-import classes from "./general.module.css";
+import classes from "./Navigation.module.css";
 
 import GlobalContexts from "../context/global-contexts";
 import NavBarSearch from "./NavBarSearch";
-import NavBarMenuRight from "./NavBarMenuRight";
 
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  styled,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import { AppBar, Badge, Box, styled, Toolbar, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ButtonSignin from "../Custom/ButtonSignin";
 import ButtonSignup from "../Custom/ButtonSignup";
 import LoginTokenContexts from "../context/login-token-context";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
+import ButtonLogout from "../Custom/ButtonLogout";
+import { NavLink } from "react-router-dom";
+
+// ------ CSS
 
 const ToolBarCSS = styled(Toolbar)({
   display: "flex",
@@ -45,27 +40,13 @@ const IconsBarCustomMobile = styled(Box)(({ theme }) => ({
   },
 }));
 
+// -------- Component
+
 const Navbar = ({ theme }) => {
   // MEnu State
-  const {
-    activeMenu,
-    setActiveMenu,
-    screenSize,
-    setScreenSize,
-    setNavMenuRightOpen,
-  } = useContext(GlobalContexts);
+  const { activeMenu, setActiveMenu, screenSize } = useContext(GlobalContexts);
 
   const { userIsLoggedIn } = useContext(LoginTokenContexts);
-
-  useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
-
-    window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     if (screenSize <= 900) {
@@ -78,9 +59,11 @@ const Navbar = ({ theme }) => {
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
   const cartBadge = (
-    <Badge badgeContent={2} color="primary">
-      <ShoppingCartIcon />
-    </Badge>
+    <NavLink to="/cart">
+      <Badge badgeContent={2} sx={{ color: "var(--color-white)" }}>
+        <ShoppingCartIcon />
+      </Badge>
+    </NavLink>
   );
 
   return (
@@ -94,20 +77,21 @@ const Navbar = ({ theme }) => {
         >
           Menu
         </Typography>
-
-        <MenuOpenIcon
-          sx={{ display: { xs: "block", sm: "none" } }}
+        <Typography
+          variant="h6"
+          className={classes.showOnMobile}
           onClick={handleActiveMenu}
-        />
+          sx={{ cursor: "pointer" }}
+        >
+          <MenuOpenRoundedIcon />
+        </Typography>
 
-        <NavBarSearch></NavBarSearch>
+        <NavBarSearch />
+
         <IconsBarCSSDesktop>
           {cartBadge}
           {userIsLoggedIn ? (
-            <IconsBarCSSDesktop onClick={(e) => setNavMenuRightOpen(true)}>
-              <Typography>Welcome</Typography>
-              <Avatar src="" sx={{ width: 30, height: 30 }} />
-            </IconsBarCSSDesktop>
+            <ButtonLogout />
           ) : (
             <IconsBarCSSDesktop>
               <ButtonSignup />
@@ -116,12 +100,14 @@ const Navbar = ({ theme }) => {
           )}
         </IconsBarCSSDesktop>
 
-        <IconsBarCustomMobile onClick={(e) => setNavMenuRightOpen(true)}>
+        <IconsBarCustomMobile>
           {cartBadge}
-          <Avatar src="" sx={{ width: 30, height: 30 }} />
+          {userIsLoggedIn ? (
+            <ButtonLogout />
+          ) : (
+            <ButtonSignin buttonTxt="Account" />
+          )}
         </IconsBarCustomMobile>
-
-        <NavBarMenuRight />
       </ToolBarCSS>
     </AppBar>
   );

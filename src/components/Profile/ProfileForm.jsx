@@ -1,8 +1,15 @@
 import React, { useContext, useRef } from "react";
 import classes from "./Profile.module.css";
-import { TextField } from "@mui/material";
+import { styled, TextField, Typography } from "@mui/material";
 import LoginContent from "../context/login-token-context";
 import GlobalContexts from "../context/global-contexts";
+
+const TextFieldCSS = styled(TextField)({
+  variant: "outlined",
+  color: "secondary",
+  backgroundColor: "white",
+  borderRadius: "5px",
+});
 
 const ProfileForm = () => {
   const { navigate } = useContext(LoginContent);
@@ -51,36 +58,27 @@ const ProfileForm = () => {
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
-      <h1>Please fill out the form</h1>
-      <TextField
+      <Typography variant="h2">Please fill out the form</Typography>
+      <TextFieldCSS
         label="name"
         input="name"
         required
         inputRef={nameInputRef}
         id="outlined-basic"
-        variant="outlined"
-        color="secondary"
-        sx={{ bgcolor: "white", borderRadius: "5px" }}
       />
-      <TextField
+      <TextFieldCSS
         label="surname"
         input="surname"
         required
         inputRef={surnameInputRef}
         id="outlined-basic"
-        variant="outlined"
-        color="secondary"
-        sx={{ bgcolor: "white", borderRadius: "5px" }}
       />
-      <TextField
+      <TextFieldCSS
         label="song"
         input="song"
         required
         inputRef={songInputRef}
         id="outlined-basic"
-        variant="outlined"
-        color="secondary"
-        sx={{ bgcolor: "white", borderRadius: "5px" }}
       />
       <div className={classes.action}>
         <button>Confirm Data</button>

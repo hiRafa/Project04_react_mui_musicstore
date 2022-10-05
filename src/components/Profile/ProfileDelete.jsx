@@ -1,9 +1,9 @@
-import { Logout } from "@mui/icons-material";
-import { Stack } from "@mui/material";
 import { useContext } from "react";
 import GlobalContexts from "../context/global-contexts";
 import LoginTokenContexts from "../context/login-token-context";
+import ButtonAll from "../ui/ButtonAll";
 import classes from "./Profile.module.css";
+import Section from "../ui/Section";
 
 const ProfileDelete = () => {
   const { navigate, userToken, logout } = useContext(LoginTokenContexts);
@@ -52,18 +52,10 @@ const ProfileDelete = () => {
   };
 
   return (
-    <Stack>
-      <form className={classes.form} onSubmit={deleteDataHandler}>
-        <div className={classes.action}>
-          <button>Delete Data</button>
-        </div>
-      </form>
-      <form className={classes.form} onSubmit={deleteAccountHandler}>
-        <div className={classes.action}>
-          <button>Delete Account</button>
-        </div>
-      </form>
-    </Stack>
+    <Section className={classes.sectionButtonsDelete}>
+      <ButtonAll onClick={deleteDataHandler} buttonTxt="Delete Data" />
+      <ButtonAll onClick={deleteAccountHandler} buttonTxt="Delete Account" />
+    </Section>
   );
 };
 

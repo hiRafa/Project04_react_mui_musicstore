@@ -1,28 +1,17 @@
-import React, { useContext, useState } from "react";
-import { Button } from "@mui/material";
+import React, { useContext } from "react";
 import BoxPages from "./ui/BoxPages";
 import UserProfile from "./Profile/UserProfile";
-import { NavLink } from "react-router-dom";
+
 import LoginContent from "./context/login-token-context";
-import CardPost from "./ui/CardPost";
-import GlobalContexts from "./context/global-contexts";
+// import GlobalContexts from "./context/global-contexts";
+import LogIn from "./LogInPage";
 
 const ProfilePage = () => {
   const { userIsLoggedIn } = useContext(LoginContent);
-  const { userInfo } = useContext(GlobalContexts);
-  console.log(userInfo);
+  // const { userInfo } = useContext(GlobalContexts);
+  // console.log(userInfo); // returns false if we dont have userInfo, returns the userInfo if we have in the database
 
-  return (
-    <BoxPages>
-      {userIsLoggedIn ? (
-        <UserProfile />
-      ) : (
-        <NavLink to="/login">
-          <Button> Please Log in </Button>
-        </NavLink>
-      )}
-    </BoxPages>
-  );
+  return <BoxPages>{userIsLoggedIn ? <UserProfile /> : <LogIn />}</BoxPages>;
 };
 
 export default ProfilePage;

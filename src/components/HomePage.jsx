@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import * as React from "react";
 import GlobalContexts from "./context/global-contexts";
 import NewsBackdrop from "./Homepage/NewsBackdrop";
@@ -13,7 +13,7 @@ import { useContext } from "react";
 import ReactPaginate from "react-paginate";
 
 const HomePage = () => {
-  const { modalIsOpen, closeModalHandler, currentPage, setCurrentPage } =
+  const { modalIsOpen, closeModalHandler } =
     useContext(GlobalContexts);
 
   return (
@@ -25,19 +25,7 @@ const HomePage = () => {
       )}
       {modalIsOpen && <NewsBackdrop onCancel={closeModalHandler} />}
 
-      <Section>
-        <Box
-          sx={{
-            width: "400px",
-            height: "400px",
-            margin: "0 auto",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <NewsSlider />
-        </Box>
-      </Section>
+      <NewsSlider />
       <Section>
         <Products />
         {/* <ProductsPagination

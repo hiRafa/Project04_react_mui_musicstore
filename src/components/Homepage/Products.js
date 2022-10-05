@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { Fragment, useContext } from "react";
 import GlobalContexts from "../context/global-contexts";
-import CardPost from "../ui/CardPost";
+import ProductCard from "./ProductCard";
 
 const Products = (props) => {
   const { productsArray } = useContext(GlobalContexts);
@@ -19,7 +19,7 @@ const Products = (props) => {
             gap: "2rem",
           }}
         >
-          <CardPost />
+          <ProductCard />
         </Box>
       ) : (
         ""

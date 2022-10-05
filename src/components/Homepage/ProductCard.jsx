@@ -18,7 +18,7 @@ import { theme } from "../../theme";
 import GlobalContexts from "../context/global-contexts";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
-import classes from "./ui.module.css";
+import classes from "./Product.module.css";
 
 const label = { inputProps: { "aria-label": "Checkbox " } };
 const CardCSS = styled(Card)({
@@ -31,7 +31,7 @@ const CardContentCSS = styled(CardContent)({
   overflow: "hidden",
 });
 const CheckboxCSS = styled(Checkbox)({
-  color: `${theme.palette.greyTheme.main}`,
+  color: `${theme.palette.primary.light}`,
   ":hover": {
     color: `${theme.palette.secondary.main}`,
     cursor: "pointer",
@@ -42,8 +42,16 @@ const CardActionsCSS = styled(CardActions)({
   display: "flex",
   justifyContent: "space-between",
 });
+const AddShoppingCartRoundedIconCSS = styled(AddShoppingCartRoundedIcon)({
+  fontSize: "2rem",
+  fill: "black",
+  ":hover": {
+    fill: `${theme.palette.secondary.main}`,
+    transition: "all 0.25s linear",
+  },
+});
 
-const CardPost = (props) => {
+const ProductCard = () => {
   const { productsArray } = useContext(GlobalContexts);
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -100,7 +108,7 @@ const CardPost = (props) => {
             />
           </div>
           <IconButton aria-label="add to cart">
-            <AddShoppingCartRoundedIcon sx={{ fontSize: "2rem" }} />
+            <AddShoppingCartRoundedIconCSS />
           </IconButton>
         </CardActionsCSS>
       </CardCSS>
@@ -132,4 +140,4 @@ const CardPost = (props) => {
   );
 };
 
-export default CardPost;
+export default ProductCard;

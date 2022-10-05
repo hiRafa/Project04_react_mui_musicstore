@@ -17,14 +17,9 @@
   color: black;
   z-index: 1;
   cursor: pointer;
+  color: var(--color-white);
 }
-.arrow_base:hover {
-  color: purple;
-}
-.arrow_base:active {
-  color: yellow;
-  transition: ease-in-out 0.05s;
-}
+
 .arrow_left {
   left: -25px;
 }
@@ -61,7 +56,7 @@
   transition: ease-in-out 0.25s;
 }
 .slideCSS:hover {
-  background-color: purple;
+  background-color: var(--color-primary-main);
   color: white;
 }
 
@@ -78,6 +73,14 @@
   text-align: center;
 }
 
+.sliderBG {
+  width: 100%;
+  background-image: url(../../content/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 60%;
+}
+
 .dotsContainerCSS {
   position: relative;
   width: 100%;
@@ -89,13 +92,20 @@
   font-size: 1.5rem;
   margin: 0 3px;
   cursor: pointer;
+  color: var(--color-white);
 }
+.arrow_base:hover,
 .dotIcon:hover {
-  color: purple;
+  color: var(--color-primary-light);
+}
+.arrow_base:active,
+.dotIcon:active {
+  color: var(--color-seconday-main);
+  transition: ease-in-out 0.05s;
 }
 
 .dotIconActive {
-  color: yellow;
+  color: var(--color-seconday-main);
 }
 
 /* ------------------------------------------------------------------ */

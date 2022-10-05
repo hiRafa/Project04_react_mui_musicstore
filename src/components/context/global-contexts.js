@@ -1,5 +1,5 @@
 // import { Box, styled } from "@mui/material";
-import { type } from "@testing-library/user-event/dist/type";
+// import { type } from "@testing-library/user-event/dist/type";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import LoginTokenContexts from "./login-token-context";
 
@@ -20,25 +20,23 @@ export function GlobalContextsProvider(props) {
   // ---------------------  Menus and screen size
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
-  const [navMenuRightOpen, setNavMenuRightOpen] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   // ---------------------  Nagivation Active Button
   // Number 9 is reserved to Signup
   const [navMenuSelectedIndex, setNavMenuSelectedIndex] = useState(0);
 
-  const handleListItemClick = (event, index) => {
-    setNavMenuSelectedIndex(index);
-  };
-
   // ----------- Login or Create Account
   const { token, userIsLoggedIn } = useContext(LoginTokenContexts);
-  const [isLogin, setIsLogin] = useState(true);
+
+  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState();
   const [httpError, setHttpError] = useState(null);
-
-  const hasAccountOrNotHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
 
   // ----------- Getting Id and Email from authentication firebase (to set it to the database with personal info)
 
@@ -289,16 +287,14 @@ export function GlobalContextsProvider(props) {
         setActiveMenu,
         screenSize,
         setScreenSize,
-        navMenuRightOpen,
-        setNavMenuRightOpen,
+
         navMenuSelectedIndex,
         setNavMenuSelectedIndex,
-        handleNavItemClick: handleListItemClick,
+
         isLogin,
         setIsLogin,
         isLoading,
         setIsLoading,
-        hasAccountOrNotHandler,
 
         userInfo,
         setUserInfo,

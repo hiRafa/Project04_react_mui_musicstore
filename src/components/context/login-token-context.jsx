@@ -85,7 +85,8 @@ export const LoginTokenProvider = (props) => {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);
-
+  console.log(userIsLoggedIn);
+  console.log(token);
   return (
     <LoginTokenContexts.Provider
       value={{

@@ -1,14 +1,23 @@
 import { Box, Card, Divider, Stack, styled, Typography } from "@mui/material";
 import React, { useContext } from "react";
+import { Fragment } from "react";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import GlobalContexts from "../context/global-contexts";
 import TypoTitleForm from "../Custom/TypoTitleForm";
+import ButtonAll from "../ui/ButtonAll";
 import classes from "./Profile.module.css";
 
-const BoxCSS = styled(Box)({
+const BoxCSSDesktop = styled(Box)({
   display: "flex",
   textAlign: "left",
-  alignContent: "flex-end",
+});
+const BoxCSSMobile = styled(Box)({
+  textAlign: "left",
+});
+
+const TypoTitleFormCSS = styled(TypoTitleForm)({
+  width: "100px",
 });
 
 const TypoInfoCSS = styled(Typography)({
@@ -17,7 +26,54 @@ const TypoInfoCSS = styled(Typography)({
 });
 
 const ProfileInfo = () => {
-  const { userInfo } = useContext(GlobalContexts);
+  const { userInfo, screenSize } = useContext(GlobalContexts);
+
+  const formLine = (profilename, userData) => {
+    if (screenSize <= 450) {
+      return (
+        <Fragment>
+          <BoxCSSMobile>
+            <TypoTitleFormCSS profilename={profilename} />
+            <TypoInfoCSS>{userData}</TypoInfoCSS>
+          </BoxCSSMobile>
+          <Divider />
+        </Fragment>
+      );
+    } else {
+      return (
+        <Fragment>
+          <BoxCSSDesktop>
+            <TypoTitleFormCSS profilename={profilename} />
+            <TypoInfoCSS>{userData}</TypoInfoCSS>
+          </BoxCSSDesktop>
+          <Divider />
+        </Fragment>
+      );
+    }
+  };
+  // useEffect(() => {
+  // if (screenSize <= 900) {
+  //   formLine = (
+  //     <Fragment>
+  //       <BoxCSSMobile>
+  //         <TypoTitleFormCSS profilename={profilename} />
+  //         <TypoInfoCSS>{userData}</TypoInfoCSS>
+  //       </BoxCSSMobile>
+  //       <Divider />
+  //     </Fragment>
+  //   );
+  //   } else {
+  //     formLine = (
+  //       <Fragment>
+  //         <BoxCSSDesktop>
+  //           <TypoTitleFormCSS profilename={"Name"} />
+  //           <TypoInfoCSS>{userInfo.name}</TypoInfoCSS>
+  //         </BoxCSSDesktop>
+  //         <Divider />
+  //       </Fragment>
+  //     );
+  //   }
+  // }, [screenSize]);
 
   return (
     <section className={classes.profile}>
@@ -28,26 +84,13 @@ const ProfileInfo = () => {
         >{`${userInfo.name}'s profile`}</Typography>
 
         <Stack>
-          <BoxCSS>
-            <TypoTitleForm profilename={"Name"} />
-            <TypoInfoCSS>{userInfo.name}</TypoInfoCSS>
-          </BoxCSS>
-          <Divider />
-
-          <BoxCSS>
-            <TypoTitleForm profilename={"Surname"} />
-            <TypoInfoCSS>{userInfo.surname}</TypoInfoCSS>
-          </BoxCSS>
-          <Divider />
-          <BoxCSS>
-            <TypoTitleForm profilename={`${userInfo.name}'s Song"}`} />
-            <TypoInfoCSS>{userInfo.song}</TypoInfoCSS>
-          </BoxCSS>
-          <Divider />
+          {formLine("Name", userInfo.name)}
+          {formLine("Surname", userInfo.surname)}
+          {formLine("Song", userInfo.song)}
         </Stack>
 
         <NavLink to="/profileedit">
-          <button>Edit</button>
+          <ButtonAll buttonTxt="Edit" />
         </NavLink>
       </Card>
     </section>

@@ -1,7 +1,7 @@
 import {
+  Box,
   Card,
   CardContent,
-  Divider,
   Stack,
   styled,
   TextField,
@@ -15,40 +15,14 @@ import BoxPages from "./ui/BoxPages";
 import classes from "./Signup.module.css";
 import LoginTokenContexts from "./context/login-token-context";
 import { useState } from "react";
-import { theme } from "../theme";
 
-const TextFieldCSSValid = styled(TextField)({
-  id: "outlined-basic",
-  borderRadius: "5px",
-  variant: "outlined",
-  // "& .Mui-focused": {
-  //   backgroundColor: `${theme.palette.primary.dark}`,
-  //   color: `${theme.palette.secondary.light}`,
-  // },
-  "&:hover": {
-    backgroundColor: `${theme.palette.primary.light}`,
-  },
-  "& .Mui-selected": {
-    color: `${theme.palette.secondary.light}`,
-  },
-});
-
-const TextFieldCSSInvalid = styled(TextField)({
-  id: "outlined-basic",
-  backgroundColor: "red",
-  borderRadius: "5px",
-  variant: "outlined",
-  "& .Mui-focused": {
-    backgroundColor: `${theme.palette.secondary.light}`,
-    color: `${theme.palette.primary.dark}`,
-  },
-  "&:hover": {
-    backgroundColor: `${theme.palette.secondary.light}`,
-  },
+const TypographyCSSInvalidData = styled(Typography)({
+  fontSize: "1rem",
+  color: "var(--color-primary-main)",
 });
 
 // Helper functions to validated input data
-const isNotEmpty = (value) => value.trim() !== "";
+// const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@") && value.length > 3;
 const checkPassword = (value) =>
   value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/);
@@ -56,7 +30,7 @@ const checkPassword = (value) =>
 // -------------------------------------------------------------------------
 
 const LogIn = () => {
-  const { isLogin, isLoading, setIsLoading, hasAccountOrNotHandler, userInfo } =
+  const { isLogin, setIsLogin, isLoading, setIsLoading, userInfo } =
     useContext(GlobalContexts);
   const { login, navigate } = useContext(LoginTokenContexts);
 
@@ -121,9 +95,9 @@ const LogIn = () => {
         } else {
           return res.json().then((data) => {
             let errorMessage = "Authentication failed!";
-            // if (data && data.error && data.error.message) {
-            //   errorMessage = data.error.message;
-            // }
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
 
             throw new Error(errorMessage);
           });
@@ -144,6 +118,10 @@ const LogIn = () => {
       });
   };
 
+  const hasAccountOrNotHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
+
   return (
     <BoxPages>
       <section>
@@ -153,54 +131,39 @@ const LogIn = () => {
               {isLogin ? "Login" : "Sign Up"}
             </Typography>
             <form onSubmit={submitHandler}>
-              <Stack sx={{ gap: "30px" }}>
-                {!formInputsValidity.email ? (
-                  <TextFieldCSSInvalid
+              <Stack sx={{ gap: "2rem" }}>
+                <Box sx={{ gap: ".5rem" }}>
+                  {!formInputsValidity.email && (
+                    <TypographyCSSInvalidData>
+                      Email not valid
+                    </TypographyCSSInvalidData>
+                  )}
+                  <TextField
                     label="Email"
                     input="Email"
                     required
                     inputRef={emailInputRef}
                   />
-                ) : (
-                  <TextFieldCSSValid
-                    label="Email"
-                    input="Email"
+                </Box>
+                <Box sx={{ gap: ".5rem" }}>
+                  <TextField
+                    label="Password"
+                    input="Password"
                     required
-                    inputRef={emailInputRef}
+                    inputRef={passwordInputRef}
                   />
-                )}
-                {!formInputsValidity.email && <p>Email not valid</p>}
 
-                <TextFieldCSSValid
-                  label="Password"
-                  input="Password"
-                  required
-                  inputRef={passwordInputRef}
-                  sx={
-                    !formInputsValidity.email
-                      ? {
-                          "& .Mui-focused": {
-                            backgroundColor: `${theme.palette.primary.dark}`,
-                            color: `${theme.palette.secondary.light}`,
-                          },
-                        }
-                      : {
-                          backgroundColor: "red",
-                          "& .Mui-focused": {
-                            backgroundColor: `${theme.palette.secondary.light}`,
-                            color: `${theme.palette.primary.dark}`,
-                          },
-                        }
-                  }
-                />
-
-                {!formInputsValidity.password && <p>Weak Password</p>}
+                  {!formInputsValidity.password && (
+                    <TypographyCSSInvalidData>
+                      Weak Password: use at least one uppercase, one lowercase,
+                      one symbol and between 7~16 characters
+                    </TypographyCSSInvalidData>
+                  )}
+                </Box>
               </Stack>
 
               <div className={classes.actions}>
-                {!isLoading && (
-                  <button>{isLogin ? "Login" : "Create Account"}</button>
-                )}
+                <button>{isLogin ? "Login" : "Create Account"}</button>
                 {isLoading && <p>Sending request...</p>}
                 <button
                   type="button"

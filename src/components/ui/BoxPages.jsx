@@ -1,18 +1,12 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { Fragment } from "react";
+import classes from "./ui.module.css";
 
 const BoxPages = (props) => {
   return (
     <Fragment>
-      <Box
-        bgcolor={"pink"}
-        p={2}
-        paddingTop={8}
-        sx={{ height: "100%", width: "100vw" }}
-      >
-        {props.children}
-      </Box>
+      <Box className={classes.boxPages}>{props.children}</Box>
     </Fragment>
   );
 };
