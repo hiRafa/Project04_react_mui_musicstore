@@ -10,6 +10,7 @@
   --color-white: #fff;
 
   --borderRadius: 2rem;
+  --transition: all 0.25s linear;
 }
 
 * {
@@ -23,6 +24,6 @@
 }
 
 .articlesPage {
-  width: 50%;
+  width: 70%;
   height: 50%;
 }

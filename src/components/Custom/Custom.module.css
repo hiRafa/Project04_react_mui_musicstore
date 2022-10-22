@@ -1,0 +1,18 @@
+.form {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  justify-content: space-between;
+}
+.input {
+  margin-right: 0.5rem;
+}
+
+.input input {
+  width: 3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+}

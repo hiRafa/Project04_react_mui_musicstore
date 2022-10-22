@@ -109,9 +109,9 @@ const LogIn = () => {
         );
         login(data.idToken, expirationTime.toISOString());
 
-        navigate(userInfo ? "/profile" : "/", { replace: true });
+        navigate(userInfo && "/", { replace: true });
 
-        // replace true to avoid users going back to log in page.
+        // replace true to avoid users going back to log in page with the backward web functionality
       })
       .catch((err) => {
         alert(err.message);

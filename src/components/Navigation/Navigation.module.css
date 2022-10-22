@@ -1,3 +1,13 @@
+.navBar {
+  position: fixed;
+  z-index: 2;
+}
+
+.navSide {
+  position: fixed;
+  z-index: 1;
+}
+
 .showOnMobile {
   display: block;
 }

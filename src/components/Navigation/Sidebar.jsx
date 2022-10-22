@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import SideBarList from "./SideBarList";
+import classes from "./Navigation.module.css";
 
 const Sidebar = (props) => {
   return (
@@ -10,9 +11,8 @@ const Sidebar = (props) => {
         color: "var(--color-white)",
         boxShadow: "2px 0px 5px #888888",
         paddingTop: 8,
-        position: "fixed",
-        zIndex: "100",
       }}
+      className={classes.navSide}
     >
       <SideBarList />
     </Box>

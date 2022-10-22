@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import GlobalContexts from "../context/global-contexts";
+import CardsContext from "../context/cards-context";
 import classes from "./News.module.css";
 
 const ArrowRight = () => {
-  const { currentIndex, setCurrentIndex } = useContext(GlobalContexts);
+  const { currentIndex, setCurrentIndex } = useContext(CardsContext);
 
   const toNext = () => {
     const lastSlide = currentIndex === 5 - 1;

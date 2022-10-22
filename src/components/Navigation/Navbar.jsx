@@ -12,8 +12,16 @@ import LoginTokenContexts from "../context/login-token-context";
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import ButtonLogout from "../Custom/ButtonLogout";
 import { NavLink } from "react-router-dom";
+import CartContext from "../context/cart-context";
 
 // ------ CSS
+const BadgeCSS = styled(Badge)({
+  color: "var(--color-white)",
+  ":hover": {
+    color: "var(--color-seconday-main)",
+    transition: "var(--transition)",
+  },
+});
 
 const ToolBarCSS = styled(Toolbar)({
   display: "flex",
@@ -42,11 +50,11 @@ const IconsBarCustomMobile = styled(Box)(({ theme }) => ({
 
 // -------- Component
 
-const Navbar = ({ theme }) => {
+const Navbar = () => {
   // MEnu State
   const { activeMenu, setActiveMenu, screenSize } = useContext(GlobalContexts);
-
   const { userIsLoggedIn } = useContext(LoginTokenContexts);
+  const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
     if (screenSize <= 900) {
@@ -58,16 +66,20 @@ const Navbar = ({ theme }) => {
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
+  let amountOfItemsInCart = cartItems.reduce((currentNum, cartItem) => {
+    return currentNum + cartItem.amount;
+  }, 0);
+
   const cartBadge = (
     <NavLink to="/cart">
-      <Badge badgeContent={2} sx={{ color: "var(--color-white)" }}>
+      <BadgeCSS badgeContent={amountOfItemsInCart}>
         <ShoppingCartIcon />
-      </Badge>
+      </BadgeCSS>
     </NavLink>
   );
 
   return (
-    <AppBar position="fixed">
+    <AppBar className={classes.navBar}>
       <ToolBarCSS>
         <Typography
           variant="h6"

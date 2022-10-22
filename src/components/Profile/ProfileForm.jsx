@@ -42,6 +42,7 @@ const ProfileForm = () => {
             name: enteredName,
             surname: enteredSurname,
             song: enteredSong,
+            favoritesIDs: ["20220901"],
           }),
           headers: {
             "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const ProfileForm = () => {
       ).then((resp) => {
         resp.json().then(() => {
           fetchUserInfo();
-          navigate("/", { replace: true });
+          navigate("/profile", { replace: true });
         });
       });
     }

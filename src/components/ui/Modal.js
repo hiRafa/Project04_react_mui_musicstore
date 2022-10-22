@@ -1,4 +1,4 @@
-import classes from "./News.module.css";
+import classes from "./ui.module.css";
 
 const NewsModal = (props) => {
   return <div className={classes.modal}>{props.children}</div>;

@@ -1,8 +1,8 @@
 import React from "react";
-import classes from "./News.module.css";
+import classes from "./ui.module.css";
 
-const NewsBackdrop = (props) => {
+const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onCancel} />;
 };
 
-export default NewsBackdrop;
+export default Backdrop;

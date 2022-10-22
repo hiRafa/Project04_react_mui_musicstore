@@ -1,6 +1,6 @@
 import { Button, styled } from "@mui/material";
 import React, { useContext } from "react";
-import GlobalContexts from "../context/global-contexts";
+import CardsContext from "../context/cards-context";
 
 const ButtonCSS = styled(Button)({
   padding: ".5rem",
@@ -8,7 +8,7 @@ const ButtonCSS = styled(Button)({
 });
 
 const ButtonClose = (props) => {
-  const { closeModalHandler } = useContext(GlobalContexts);
+  const { closeModalHandler } = useContext(CardsContext);
 
   return <ButtonCSS onClick={closeModalHandler}>{props.txt}</ButtonCSS>;
 };

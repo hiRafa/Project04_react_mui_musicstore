@@ -24,6 +24,8 @@ function App() {
 
   return (
     <Box sx={{ height: "100vh" }}>
+      {/* {modalIsOpen && <NewsBackdrop onCancel={closeModalHandler} />} */}
+
       <Navbar />
       <Stack direction="row" className={"stack"}>
         {activeMenu ? <Sidebar /> : ""}
@@ -43,7 +45,6 @@ function App() {
             {userIsLoggedIn && (
               <Route path="/profileedit" element={<ProfileEdit />} />
             )}
-
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
