@@ -36,47 +36,10 @@
   padding: 0.25rem;
 }
 
-.actions {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.actions button {
-  cursor: pointer;
-  font: inherit;
-  color: var(--color-primary-main);
-  background-color: var(--color-primary-main);
-  border: 1px solid var(--color-primary-main);
-  border-radius: 4px;
-  padding: 0.5rem 2.5rem;
-}
-
-.actions button:hover {
-  background-color: #873abb;
-  border-color: #873abb;
-}
-
-.actions .toggle {
-  margin-top: 1rem;
-  background-color: transparent;
-  color: #9f5ccc;
-  border: none;
-  padding: 0.15rem 1.5rem;
-}
-
-.actions .toggle:hover {
-  background-color: transparent;
-  color: #ae82cc;
-}
-
-.cart-items {
+.cart-itemsList {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 20rem;
-  overflow: auto;
 }
 
 .total {
@@ -90,30 +53,38 @@
 
 .actions {
   text-align: right;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .actions button {
-  font: inherit;
   cursor: pointer;
-  background-color: transparent;
-  border: 1px solid #8a2b06;
   padding: 0.5rem 2rem;
-  border-radius: 25px;
-  margin-left: 1rem;
+  margin: 0.5rem;
+  border-radius: var(--borderRadius);
+  color: white;
+  background-color: var(--color-primary-main);
+  transition: var(--transition);
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #5a1a01;
-  border-color: #5a1a01;
-  color: white;
+  background-color: var(--color-primary-dark);
+  color: var(--color-seconday-main);
+  transition: var(--transition);
 }
 
-.actions .button--alt {
-  color: #8a2b06;
+.actions .toggle {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #9f5ccc;
+  border: none;
+  padding: 0.15rem 1.5rem;
 }
 
-.actions .button {
-  background-color: #8a2b06;
-  color: white;
+.actions .toggle:hover {
+  background-color: transparent;
+  color: #ae82cc;
 }

@@ -10,9 +10,9 @@ import { NavLink } from "react-router-dom";
 const CartPage = (props) => {
   const { cartItems, priceTotal, amount, removeItem, addItem } =
     useContext(CartContext);
-  console.log(cartItems);
-  console.log(priceTotal);
-  console.log(amount);
+  // console.log(cartItems);
+  // console.log(priceTotal);
+  // console.log(amount);
 
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,12 +21,11 @@ const CartPage = (props) => {
   let cartHasItems;
   if (cartItems) cartHasItems = cartItems.length > 0;
 
-  const cartItemRemoveHandler = (id) => {
-    removeItem(id);
-  };
-
   const cartItemAddHandler = (item) => {
     addItem({ ...item, amount: 1 });
+  };
+  const cartItemRemoveHandler = (id) => {
+    removeItem(id);
   };
 
   const orderHandler = () => {
@@ -36,21 +35,25 @@ const CartPage = (props) => {
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
     if (cartItems) {
-      await fetch("https://react-http-6b4a6.firebaseio.com/orders.json", {
-        method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderedItems: cartItems,
-        }),
-      });
+      await fetch(
+        "https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            user: userData,
+            orderedItems: cartItems,
+          }),
+        }
+      );
     }
     setIsSubmitting(false);
     setDidSubmit(true);
     // cartContextforCart.clearCart();
   };
+  // console.log(cartItems);
 
   const itemsOnCart = (
-    <ul className={classes["cart-items"]}>
+    <ul className={classes["cart-itemsList"]}>
       {cartItems &&
         cartItems.map((item) => (
           <CartItem
@@ -58,7 +61,8 @@ const CartPage = (props) => {
             name={item.name}
             amount={item.amount}
             price={item.price}
-            onRemove={cartItemRemoveHandler.bind(null, item.id)}
+            img={item.img}
+            onRemove={cartItemRemoveHandler.bind(null, item)}
             onAdd={cartItemAddHandler.bind(null, item)}
           />
         ))}
@@ -67,16 +71,17 @@ const CartPage = (props) => {
     // the function is executed, making surein this case that the function will received the id or item
   );
 
-  const modalActions = (
+  const actionButtons = (
     <div className={classes.actions}>
-      <ButtonAll
-        className={classes["button-alt"]}
-        onClick={props.onCloseCart}
-        buttonTxt={"Keep Shopping!"}
-      />
+      <NavLink to="/">
+        <ButtonAll
+          className={classes.buttonShop}
+          buttonTxt={"Keep Shopping!"}
+        />
+      </NavLink>
       {cartHasItems && (
         <ButtonAll
-          className={classes.button}
+          className={classes.buttonOrder}
           onClick={orderHandler}
           buttonTxt={"Order"}
         />
@@ -84,22 +89,25 @@ const CartPage = (props) => {
     </div>
   );
 
+  // Case 1 if it is not submitting and did not submit yet
   const cartContent = (
     <Fragment>
       {itemsOnCart}
       <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{priceTotal}</span>
+        <p>Total Amount:</p>
+        <p>{`¥${priceTotal}`}</p>
       </div>
       {isCheckout && (
         <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
-      {!isCheckout && modalActions}
+      {!isCheckout && actionButtons}
     </Fragment>
   );
 
+  // Case 2 if it is submitting
   const isSubmittingModalContent = <p>Sending order data...</p>;
 
+  // Case 3 if it is no submitting anymore and it did submit
   const orderSuccessContent = (
     <Fragment>
       <p>Successfully sent the order!</p>

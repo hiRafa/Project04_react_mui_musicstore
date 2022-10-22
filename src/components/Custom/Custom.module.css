@@ -16,3 +16,15 @@
   font: inherit;
   padding-left: 0.5rem;
 }
+
+.cartAdd {
+  width: 3rem;
+  padding: 0.25rem;
+  background-color: var(--color-primary-main);
+  transition: var(--transition);
+}
+
+.cartAdd:hover {
+  background-color: var(--color-primary-dark);
+  transition: var(--transition);
+}

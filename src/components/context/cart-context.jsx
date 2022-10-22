@@ -54,26 +54,32 @@ const CartReducer = (lastState, cartAction) => {
   }
 
   if (cartAction.type === "REMOVE") {
+    console.log(cartAction.product.id);
     // Getting the Index for each product in the array of cartItems
     const existingCartItemIndex = lastState.cartItems.findIndex(
-      (item) => item.id === cartAction.id
+      (item) => item.id === cartAction.product.id
     );
-    const existingItem = lastState.cartItems[existingCartItemIndex];
+    const existingCartItem = lastState.cartItems[existingCartItemIndex];
 
     // Calculating the total price when removing an item from the array of cartItems
-    const updatedPriceTotal = lastState.priceTotal - existingItem.price;
+    let updatedPriceTotal;
+    if (existingCartItem)
+      updatedPriceTotal = lastState.priceTotal - existingCartItem.price;
 
     // array helper , first if to check if there is one item only in the cartItems (cart) for each product
     // if it is, then it will be removed when clicking on the remove button, because there is only one.
     let updatedItems;
-    if (existingItem.amount === 1) {
+    if (existingCartItem.amount === 1) {
       updatedItems = lastState.cartItems.filter(
-        (item) => item.id !== cartAction.id
+        (item) => item.id !== cartAction.product.id
       );
     } else {
       // for more than 2 items per product:
       // the existing product in the cart is equal to the existing product and the amount minus 1
-      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount - 1,
+      };
 
       // the array helper is equal to the last cartItems state (array of cartItems)
       updatedItems = [...lastState.cartItems];
@@ -91,10 +97,6 @@ const CartReducer = (lastState, cartAction) => {
 
   return defaultCartState;
 };
-
-// let cartItems = defaultCartState.cartItems;
-// let priceTotal = `$${defaultCartState.priceTotal.toFixed(2)}`;
-// let amount = defaultCartState.amount;
 
 export function CartContextProvider(props) {
   // Use Reducer,  first arg is to point to the Reducer Function (React will execute it accordingly)
