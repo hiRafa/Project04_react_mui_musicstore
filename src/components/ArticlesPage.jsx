@@ -1,8 +1,10 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import CardsContext from "./context/cards-context";
 import GlobalContexts from "./context/global-contexts";
+
 import BoxPages from "./ui/BoxPages";
 import CardsList from "./ui/CardsList";
+
 import ArticlesModalContent from "./Articles/ArticlesModalContent";
 
 const ArticlesPage = () => {

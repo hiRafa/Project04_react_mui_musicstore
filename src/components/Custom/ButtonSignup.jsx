@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import GlobalContexts from "../context/global-contexts";
 
-const ButtonSignup = () => {
+const ButtonSignup = (props) => {
   const { setIsLogin } = useContext(GlobalContexts);
 
   const setIsLoginToFalse = () => {
@@ -13,7 +13,11 @@ const ButtonSignup = () => {
 
   return (
     <NavLink to="/login">
-      <Button color="whiteTheme" onClick={setIsLoginToFalse}>
+      <Button
+        color="whiteTheme"
+        onClick={setIsLoginToFalse}
+        className={props.className}
+      >
         <Typography>Sign Up</Typography>
       </Button>
     </NavLink>

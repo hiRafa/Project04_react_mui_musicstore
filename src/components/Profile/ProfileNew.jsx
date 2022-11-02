@@ -11,7 +11,7 @@ const TextFieldCSS = styled(TextField)({
   borderRadius: "5px",
 });
 
-const ProfileForm = () => {
+const ProfileNew = () => {
   const { navigate } = useContext(LoginContent);
   const { localIdFromAuth, emailFromAuth, userKey, fetchUserInfo } =
     useContext(GlobalContexts);
@@ -88,4 +88,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+export default ProfileNew;

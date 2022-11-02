@@ -14,26 +14,28 @@ const ArticlesModalContent = () => {
     useContext(CardsContext);
 
   let modalContent;
-  articlesArray.map((news) =>
-    cardIndex === news.id
-      ? (modalContent = (
-          <Box className={classes.modal_content} key={news.id}>
-            <div className={classes.modal_top}>
-              <img src={news.img} className={`${classes.modal_topImage}`} />
-              <div className={classes.modal_topRight}>
-                <Typography variant="h5">{news.title}</Typography>
-                <Typography variant="p2">{news.by}</Typography>
+  if (articlesArray) {
+    articlesArray.map((news) =>
+      cardIndex === news.id
+        ? (modalContent = (
+            <Box className={classes.modal_content} key={news.id}>
+              <div className={classes.modal_top}>
+                <img src={news.img} className={`${classes.modal_topImage}`} />
+                <div className={classes.modal_topRight}>
+                  <Typography variant="h5">{news.title}</Typography>
+                  <Typography variant="p2">{news.by}</Typography>
+                </div>
               </div>
-            </div>
-            <Typography variant="p2">{news.review}</Typography>
-            <div className={classes.modal_arrows}>
-              <ButtonFavorites keyForFavorites={news.id} />
-              <ButtonClose txt="Close"></ButtonClose>
-            </div>
-          </Box>
-        ))
-      : ""
-  );
+              <Typography variant="p2">{news.review}</Typography>
+              <div className={classes.modal_arrows}>
+                <ButtonFavorites keyForFavorites={news.id} />
+                <ButtonClose txt="Close"></ButtonClose>
+              </div>
+            </Box>
+          ))
+        : ""
+    );
+  }
 
   return (
     <Fragment>

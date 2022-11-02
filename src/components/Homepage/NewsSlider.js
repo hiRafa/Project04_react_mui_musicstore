@@ -9,11 +9,13 @@ import { Box, styled } from "@mui/material";
 import Section from "../ui/Section";
 
 const BoxSliderCSS = styled(Box)({
-  width: "400px",
-  height: "400px",
+  maxWidth: "400px",
+  maxHeight: "400px",
+  width: "80%",
   margin: "0 auto",
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
 });
 
 const NewsSlider = () => {

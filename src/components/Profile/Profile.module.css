@@ -28,15 +28,6 @@
   background-color: #f7f0fa;
 }
 
-.profile {
-  margin: 3rem auto;
-  text-align: center;
-}
-
-.profile h1 {
-  font-size: 5rem;
-}
-
 .sectionButtonsDelete {
   display: flex;
   flex-wrap: wrap;

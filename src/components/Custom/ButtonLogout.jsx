@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import LoginContent from "../context/login-token-context";
 
-const ButtonLogout = () => {
+const ButtonLogout = (props) => {
   const { logout } = useContext(LoginContent);
 
   const logoutHandler = () => {
@@ -10,7 +10,11 @@ const ButtonLogout = () => {
   };
 
   return (
-    <Button color="whiteTheme" onClick={logoutHandler}>
+    <Button
+      color="whiteTheme"
+      onClick={logoutHandler}
+      className={props.className}
+    >
       <Typography>Log out</Typography>
     </Button>
   );

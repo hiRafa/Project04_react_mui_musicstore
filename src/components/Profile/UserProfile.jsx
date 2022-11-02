@@ -1,17 +1,28 @@
-import React, { useContext } from "react";
-import classes from "./Profile.module.css";
-import BoxPages from "../ui/BoxPages";
-import ProfileForm from "./ProfileForm";
-import ProfileInfo from "./ProfileInfo";
+import React, { useContext, Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import GlobalContexts from "../context/global-contexts";
+
+import ProfileNew from "./ProfileNew";
+import ProfileInfo from "./ProfileInfo";
+import ButtonAll from "../ui/ButtonAll";
+import BoxPages from "../ui/BoxPages";
 
 const UserProfile = () => {
   const { userInfo } = useContext(GlobalContexts);
 
   return (
-    <section className={classes.profile}>
-      <BoxPages>{userInfo ? <ProfileInfo /> : <ProfileForm />}</BoxPages>
-    </section>
+    <BoxPages>
+      {userInfo ? (
+        <Fragment>
+          <ProfileInfo />
+          <NavLink to="/profileedit">
+            <ButtonAll buttonTxt="Edit" />
+          </NavLink>
+        </Fragment>
+      ) : (
+        <ProfileNew />
+      )}
+    </BoxPages>
   );
 };
 

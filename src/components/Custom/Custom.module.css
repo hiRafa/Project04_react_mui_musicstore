@@ -18,10 +18,11 @@
 }
 
 .cartAdd {
-  width: 3rem;
-  padding: 0.25rem;
-  background-color: var(--color-primary-main);
+  background-color: var(--color-primary-light);
   transition: var(--transition);
+  border: none;
+  border-radius: calc(var(--borderRadius) / 2);
+  padding: 0.5rem;
 }
 
 .cartAdd:hover {

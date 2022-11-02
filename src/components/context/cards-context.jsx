@@ -1,4 +1,4 @@
-import React, { useContext, useState, createContext } from "react";
+import React, { useContext, useState, createContext, useEffect } from "react";
 import {
   styled,
   Card,
@@ -19,9 +19,13 @@ import ButtonCartAdd from "../Custom/ButtonCartAdd";
 const CardsContext = createContext();
 
 const CardCSS = styled(Card)({
-  width: 300,
-  height: "100%",
+  width: "80%",
+  minWidth: 200,
+  maxWidth: 300,
   maxHeight: 500,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
 });
 const CardContentCSS = styled(CardContent)({
   maxHeight: 50,
@@ -31,14 +35,12 @@ const CardContentCSS = styled(CardContent)({
 const CardActionsCSS = styled(CardActions)({
   display: "flex",
   justifyContent: "space-between",
+  padding: ".5rem",
 });
 
 export function CardsContextProvider(props) {
   const { productsArray, userFavsArr, articlesArray, top5NewsArray } =
     useContext(GlobalContexts);
-
-  const { cartItems, dispatchCartAction, addItem, removeItem } =
-    useContext(CartContext);
 
   // console.log(productsArray);
   // console.log(userFavsArr);
@@ -63,7 +65,7 @@ export function CardsContextProvider(props) {
   // --------------------- PRODUCTS Data and Cards
   // Mapping over productsArray data creating a card for each product
   // const productCard = productsArray.map((product) => (
-  const cardsPerPage = 3;
+  const cardsPerPage = 4;
   const totalCardsPreviousPage = pageNumber * cardsPerPage;
   const totalCardsTilCurrentPage = totalCardsPreviousPage + cardsPerPage;
 
@@ -198,7 +200,9 @@ export function CardsContextProvider(props) {
               title={capitalizeFunction(favs.name)}
               subheader={capitalize1Letter(favs.type)}
             />
-            <Typography p="0 1rem 1rem">{favs.price}</Typography>
+            <Typography p="0 1rem 1rem">{`¥${favs.price.toFixed(
+              3
+            )} `}</Typography>
             <CardMedia
               component="img"
               height="194"
@@ -212,7 +216,12 @@ export function CardsContextProvider(props) {
             </CardContentCSS>
             <CardActionsCSS disableSpacing>
               <ButtonFavorites keyForFavorites={`${favs.id}`} />
-              <ButtonCartAdd />
+              <ButtonCartAdd
+                id={favs.id}
+                name={favs.name}
+                price={favs.price}
+                img={favs.img}
+              />
             </CardActionsCSS>
           </CardCSS>
         ) : (

@@ -1,11 +1,11 @@
 .navBar {
   position: fixed;
-  z-index: 2;
+  z-index: 10;
 }
 
 .navSide {
   position: fixed;
-  z-index: 1;
+  z-index: 5;
 }
 
 .showOnMobile {
@@ -24,4 +24,22 @@
   .hideOnMobile {
     display: block;
   }
+}
+
+.buttonNav {
+  width: 85px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--color-white);
+}
+
+.buttonNav:hover {
+  color: var(--color-seconday-main);
+  transition: var(--transition);
+}
+
+.buttonNavCart {
+  width: 50px;
 }

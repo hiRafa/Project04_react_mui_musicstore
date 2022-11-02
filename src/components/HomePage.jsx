@@ -1,13 +1,14 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import GlobalContexts from "./context/global-contexts";
+import CardsContext from "./context/cards-context";
+
 import Backdrop from "./ui/Backdrop";
 import NewsModal from "./ui/Modal";
+import BoxPages from "./ui/BoxPages";
+import CardsList from "./ui/CardsList";
+
 import NewsModalContent from "./Homepage/NewsModalContent";
 import NewsSlider from "./Homepage/NewsSlider";
-import BoxPages from "./ui/BoxPages";
-import { useContext } from "react";
-import CardsList from "./ui/CardsList";
-import CardsContext from "./context/cards-context";
 
 const HomePage = () => {
   const { productsArray } = useContext(GlobalContexts);

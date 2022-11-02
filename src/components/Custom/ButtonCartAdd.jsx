@@ -6,7 +6,6 @@ import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRound
 import ButtonCartInput from "./ButtonCartInput";
 
 import CartContext from "../context/cart-context";
-import ButtonAll from "../ui/ButtonAll";
 
 const AddShoppingCartRoundedIconCSS = styled(AddShoppingCartRoundedIcon)({
   fontSize: "1.5rem",
@@ -64,11 +63,10 @@ const ButtonCartAdd = (props) => {
           defaultValue: "1",
         }}
       />
-      <ButtonAll
-        buttonTxt={<AddShoppingCartRoundedIconCSS />}
-        className={classes.cartAdd}
-      />
 
+      <button className={classes.cartAdd}>
+        <AddShoppingCartRoundedIconCSS />
+      </button>
       {!amountIsValid && <p>Please enter amount 1-5!</p>}
     </form>
   );

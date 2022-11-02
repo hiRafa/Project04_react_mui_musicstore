@@ -13,7 +13,11 @@ const ButtonSignin = (props) => {
 
   return (
     <NavLink to="/login">
-      <Button color="whiteTheme" onClick={setIsLoginToTrue}>
+      <Button
+        color="whiteTheme"
+        onClick={setIsLoginToTrue}
+        className={props.className}
+      >
         <Typography>
           {props.buttonTxt === undefined ? "Log in" : props.buttonTxt}
         </Typography>

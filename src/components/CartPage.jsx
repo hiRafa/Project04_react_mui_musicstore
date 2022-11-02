@@ -1,11 +1,15 @@
 import React, { Fragment, useContext, useState } from "react";
+import { NavLink } from "react-router-dom";
+
+import classes from "./Pages.module.css";
 import CartContext from "./context/cart-context";
+
 import BoxPages from "./ui/BoxPages";
-import classes from "./Signup.module.css";
+import ButtonAll from "./ui/ButtonAll";
 import Checkout from "./Cart/Checkout";
 import CartItem from "./Cart/CartItem";
-import ButtonAll from "./ui/ButtonAll";
-import { NavLink } from "react-router-dom";
+
+import { Box } from "@mui/material";
 
 const CartPage = (props) => {
   const { cartItems, priceTotal, amount, removeItem, addItem } =
@@ -94,11 +98,18 @@ const CartPage = (props) => {
     <Fragment>
       {itemsOnCart}
       <div className={classes.total}>
-        <p>Total Amount:</p>
-        <p>{`¥${priceTotal}`}</p>
+        <Box>
+          <p>Total Amount:</p>
+        </Box>
+        <Box>
+          <p>{`¥${priceTotal.toFixed(3)} `}</p>
+        </Box>
       </div>
       {isCheckout && (
-        <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+        <Checkout
+          onConfirmDataTo={submitOrderHandler}
+          onCancel={props.onClose}
+        />
       )}
       {!isCheckout && actionButtons}
     </Fragment>

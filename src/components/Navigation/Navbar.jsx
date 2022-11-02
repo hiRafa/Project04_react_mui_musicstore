@@ -14,15 +14,6 @@ import ButtonLogout from "../Custom/ButtonLogout";
 import { NavLink } from "react-router-dom";
 import CartContext from "../context/cart-context";
 
-// ------ CSS
-const BadgeCSS = styled(Badge)({
-  color: "var(--color-white)",
-  ":hover": {
-    color: "var(--color-seconday-main)",
-    transition: "var(--transition)",
-  },
-});
-
 const ToolBarCSS = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -72,9 +63,11 @@ const Navbar = () => {
 
   const cartBadge = (
     <NavLink to="/cart">
-      <BadgeCSS badgeContent={amountOfItemsInCart}>
-        <ShoppingCartIcon />
-      </BadgeCSS>
+      <button className={`${classes.buttonNav} ${classes.buttonNavCart}`}>
+        <Badge badgeContent={amountOfItemsInCart}>
+          <ShoppingCartIcon />
+        </Badge>
+      </button>
     </NavLink>
   );
 
@@ -95,7 +88,7 @@ const Navbar = () => {
           onClick={handleActiveMenu}
           sx={{ cursor: "pointer" }}
         >
-          <MenuOpenRoundedIcon />
+          <MenuOpenRoundedIcon sx={{ display: "flex", alignSelf: "center" }} />
         </Typography>
 
         <NavBarSearch />
@@ -103,11 +96,11 @@ const Navbar = () => {
         <IconsBarCSSDesktop>
           {cartBadge}
           {userIsLoggedIn ? (
-            <ButtonLogout />
+            <ButtonLogout className={classes.buttonNav} />
           ) : (
             <IconsBarCSSDesktop>
-              <ButtonSignup />
-              <ButtonSignin />
+              <ButtonSignup className={classes.buttonNav} />
+              <ButtonSignin className={classes.buttonNav} />
             </IconsBarCSSDesktop>
           )}
         </IconsBarCSSDesktop>
@@ -115,9 +108,9 @@ const Navbar = () => {
         <IconsBarCustomMobile>
           {cartBadge}
           {userIsLoggedIn ? (
-            <ButtonLogout />
+            <ButtonLogout className={classes.buttonNav} />
           ) : (
-            <ButtonSignin buttonTxt="Account" />
+            <ButtonSignin buttonTxt="Account" className={classes.buttonNav} />
           )}
         </IconsBarCustomMobile>
       </ToolBarCSS>

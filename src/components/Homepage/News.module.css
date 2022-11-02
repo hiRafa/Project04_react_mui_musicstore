@@ -85,7 +85,6 @@
 }
 
 .dotIcon {
-  font-size: 2rem;
   margin: 0 3px;
   cursor: pointer;
   color: var(--color-white);
@@ -136,4 +135,15 @@
 .modal_arrows {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.modal_arrows .arrow_left,
+.modal_arrows .arrow_right {
+  color: var(--color-primary-main);
+}
+
+.modal_arrows:hover {
+  color: var(--color-primary-main);
+
 }

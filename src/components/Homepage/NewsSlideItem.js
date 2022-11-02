@@ -5,6 +5,7 @@ import GlobalContexts from "../context/global-contexts";
 import classes from "./News.module.css";
 
 import NewsSlideItemCard from "./NewsSlideItemCard";
+import AudiotrackSharpIcon from "@mui/icons-material/AudiotrackSharp";
 
 const NewsSlideItem = () => {
   const { top5NewsArray } = useContext(GlobalContexts);
@@ -20,15 +21,14 @@ const NewsSlideItem = () => {
 
       <div className={classes.dotsContainerCSS}>
         {top5NewsArray.map((slide, slideIndex) => (
-          <p
+          <AudiotrackSharpIcon
+            sx={{ fontSize: "2rem" }}
             key={slideIndex}
             className={`${classes.dotIcon} ${
               currentIndex === slideIndex ? classes.dotIconActive : ""
             }`}
             onClick={() => goToSlide(slideIndex)}
-          >
-            ♪
-          </p>
+          />
         ))}
       </div>
     </Fragment>

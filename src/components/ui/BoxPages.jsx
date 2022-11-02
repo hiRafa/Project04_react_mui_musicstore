@@ -1,8 +1,7 @@
-import { Box } from "@mui/material";
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import classes from "./ui.module.css";
 
+import { Box } from "@mui/material";
 const BoxPages = (props) => {
   return (
     <Fragment>

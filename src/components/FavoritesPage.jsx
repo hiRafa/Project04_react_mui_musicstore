@@ -1,13 +1,16 @@
 import React, { Fragment, useContext } from "react";
-import { Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import CardsContext from "./context/cards-context";
 import GlobalContexts from "./context/global-contexts";
+
 import BoxPages from "./ui/BoxPages";
 import ButtonAll from "./ui/ButtonAll";
 import CardsList from "./ui/CardsList";
 import Section from "./ui/Section";
+
 import ArticlesModalContent from "./Articles/ArticlesModalContent";
+
+import { Typography } from "@mui/material";
 
 const FavoritesPage = () => {
   const { userFavsArr, userInfo } = useContext(GlobalContexts);

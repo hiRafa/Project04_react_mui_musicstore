@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import CardsContext from "../context/cards-context";
 import classes from "./News.module.css";
 
+import ArrowCircleLeftSharpIcon from "@mui/icons-material/ArrowCircleLeftSharp";
+
 const ArrowLeft = () => {
   const { currentIndex, setCurrentIndex } = useContext(CardsContext);
 
@@ -12,12 +14,11 @@ const ArrowLeft = () => {
   };
 
   return (
-    <div
+    <ArrowCircleLeftSharpIcon
+      sx={{ fontSize: "2.5rem" }}
       className={`${classes.arrow_base} ${classes.arrow_left}`}
       onClick={toPrevious}
-    >
-      ←
-    </div>
+    />
   );
 };
 

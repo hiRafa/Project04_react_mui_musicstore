@@ -18,6 +18,11 @@
   margin: 0;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 .stack {
   gap: 0.5rem;
   justify-content: space-between;

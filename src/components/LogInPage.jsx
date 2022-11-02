@@ -1,3 +1,10 @@
+import { useContext, useRef, useState } from "react";
+import classes from "./Pages.module.css";
+
+import GlobalContexts from "./context/global-contexts";
+import LoginTokenContexts from "./context/login-token-context";
+
+import BoxPages from "./ui/BoxPages";
 import {
   Box,
   Card,
@@ -7,14 +14,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { useContext } from "react";
-import { useRef } from "react";
-import GlobalContexts from "./context/global-contexts";
-import BoxPages from "./ui/BoxPages";
-import classes from "./Signup.module.css";
-import LoginTokenContexts from "./context/login-token-context";
-import { useState } from "react";
 
 const TypographyCSSInvalidData = styled(Typography)({
   fontSize: "1rem",
@@ -29,7 +28,7 @@ const checkPassword = (value) =>
 
 // -------------------------------------------------------------------------
 
-const LogIn = () => {
+const LogInPage = () => {
   const { isLogin, setIsLogin, isLoading, setIsLoading, userInfo } =
     useContext(GlobalContexts);
   const { login, navigate } = useContext(LoginTokenContexts);
@@ -183,4 +182,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default LogInPage;

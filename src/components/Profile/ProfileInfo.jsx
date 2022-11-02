@@ -88,10 +88,6 @@ const ProfileInfo = () => {
           {formLine("Surname", userInfo.surname)}
           {formLine("Song", userInfo.song)}
         </Stack>
-
-        <NavLink to="/profileedit">
-          <ButtonAll buttonTxt="Edit" />
-        </NavLink>
       </Card>
     </section>
   );

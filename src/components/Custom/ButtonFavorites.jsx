@@ -19,15 +19,15 @@ const label = { inputProps: { "aria-label": "Checkbox " } };
 const ButtonFavorites = ({ keyForFavorites }) => {
   const { fetchUserInfo, userKey, userFavsArr, userInfo } =
     useContext(GlobalContexts);
-
-  // Setting the state chcked or unchcked for the button to load as checked if the favorite ID exists in the array of favorites we just created
-  // or not, and to update when we use the fetch put or fetch delete
   const [heartChecked, setHeartChecked] = useState(false);
   useEffect(() => {
     userFavsArr.includes(keyForFavorites)
       ? setHeartChecked(true)
       : setHeartChecked(false);
-  }, []);
+  }, [keyForFavorites, userFavsArr]);
+  // console.log(keyForFavorites);
+  // Setting the state chcked or unchcked for the button to load as checked if the favorite ID exists in the array of favorites we just created
+  // or not, and to update when we use the fetch put or fetch delete
 
   let randomID = useId();
   const fetchHelper = (PUTdelete) => {

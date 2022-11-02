@@ -9,6 +9,7 @@ import GlobalContexts from "./components/context/global-contexts";
 
 import { Box, Stack } from "@mui/material";
 import LoginTokenContexts from "./components/context/login-token-context";
+import Footer from "./components/ui/Footer";
 
 const ArticlesPage = React.lazy(() => import("./components/ArticlesPage"));
 const ProfilePage = React.lazy(() => import("./components/ProfilePage"));
@@ -23,32 +24,41 @@ function App() {
   const { userIsLoggedIn } = useContext(LoginTokenContexts);
 
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        position: "relative",
+      }}
+    >
       {/* {modalIsOpen && <NewsBackdrop onCancel={closeModalHandler} />} */}
 
       <Navbar />
-      <Stack direction="row" className={"stack"}>
-        {activeMenu ? <Sidebar /> : ""}
-        {/* to use lazy loading and improve loading performances */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            {/* <Route path="/" element={<Navigate replace to="/profile" />} /> */}
+      {/* <Stack direction="row" className={"stack"}> */}
+      {activeMenu ? <Sidebar /> : ""}
+      {/* to use lazy loading and improve loading performances */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {/* <Route path="/" element={<Navigate replace to="/profile" />} /> */}
 
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/shops" element={<ShopsPage />} />
-            <Route path="/articles" element={<ArticlesPage />} />
-            <Route path="/cart" element={<CartPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/shops" element={<ShopsPage />} />
+          <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/cart" element={<CartPage />} />
 
-            {!userIsLoggedIn && <Route path="/logIn" element={<LogInPage />} />}
-            {userIsLoggedIn && (
-              <Route path="/profileedit" element={<ProfileEdit />} />
-            )}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </Stack>
+          {!userIsLoggedIn && <Route path="/logIn" element={<LogInPage />} />}
+          {userIsLoggedIn && (
+            <Route path="/profileedit" element={<ProfileEdit />} />
+          )}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+      {/* </Stack> */}
+      <Footer />
     </Box>
   );
 }

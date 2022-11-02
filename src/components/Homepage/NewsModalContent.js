@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { Box, Typography } from "@mui/material";
-import ButtonClose from "../Custom/ButtonClose";
-import GlobalContexts from "../context/global-contexts";
+import React, { useContext, Fragment } from "react";
 import classes from "./News.module.css";
+import GlobalContexts from "../context/global-contexts";
+import CardsContext from "../context/cards-context";
 
-import { Fragment } from "react";
+import ButtonClose from "../Custom/ButtonClose";
 import ArrowRight from "./ArrowRight";
 import ArrowLeft from "./ArrowLeft";
 import ButtonFavorites from "../Custom/ButtonFavorites.jsx";
-import CardsContext from "../context/cards-context";
+
+import { Box, Typography } from "@mui/material";
 
 const NewsModalContent = () => {
   const { top5NewsArray } = useContext(GlobalContexts);
@@ -27,16 +27,16 @@ const NewsModalContent = () => {
           <img src={newsImage} className={`${classes.modal_topImage}`} />
           <div className={classes.modal_topRight}>
             <Typography variant="h5">{newsTitle}</Typography>
-            <Typography variant="p2">{newsBy}</Typography>
+            <Typography variant="p2">{`By: ${newsBy}`}</Typography>
           </div>
         </div>
         <Typography variant="p2">{newsReview}</Typography>
         <div className={classes.modal_arrows}>
           <ArrowLeft />
           <ButtonFavorites keyForFavorites={newsID} />
-          <ButtonClose txt="Close"></ButtonClose>
           <ArrowRight />
         </div>
+        <ButtonClose txt="Close"></ButtonClose>
       </Box>
     </Fragment>
   );
