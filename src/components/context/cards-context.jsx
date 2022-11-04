@@ -7,6 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Box,
 } from "@mui/material";
 
 import GlobalContexts from "../context/global-contexts";
@@ -163,27 +164,34 @@ export function CardsContextProvider(props) {
       .map((news) => (
         <CardCSS
           key={news.id}
-          className={classes.cardCSS}
           onClick={() => {
             setCardIndex(news.id);
-            openModalHandler();
           }}
         >
-          <CardMedia
-            component="img"
-            height="194"
-            alt={articlesArray.title}
-            src={`${news.img}`}
-          />
-          <Typography variant="p" component="h1" p="1rem">
-            {capitalizeFunction(news.title)}
-          </Typography>
-          <Typography variant="p" component="h4" p="0 1rem 1rem">{`by: ${capitalize1Letter(
-            news.by
-          )}`}</Typography>
-          <Typography variant="p" component="h4" p="0 1rem 1rem">
-            {dateFormatting(news.date)}
-          </Typography>
+          <Box
+            className={classes.cardCSS_articles}
+            onClick={() => {
+              openModalHandler();
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="194"
+              alt={articlesArray.title}
+              src={`${news.img}`}
+            />
+            <Typography variant="p" component="h1" p="1rem">
+              {capitalizeFunction(news.title)}
+            </Typography>
+            <Typography
+              variant="p"
+              component="h4"
+              p="0 1rem 1rem"
+            >{`by: ${capitalize1Letter(news.by)}`}</Typography>
+            <Typography variant="p" component="h4" p="0 1rem 1rem">
+              {dateFormatting(news.date)}
+            </Typography>
+          </Box>
           <CardActionsCSS disableSpacing>
             <ButtonFavorites keyForFavorites={`${news.id}`} />
           </CardActionsCSS>
@@ -228,27 +236,34 @@ export function CardsContextProvider(props) {
           articlesArrayFavs.includes(favs.id) && (
             <CardCSS
               key={favs.id}
-              className={classes.cardCSS}
               onClick={() => {
                 setCardIndex(favs.id);
-                openModalHandler();
               }}
             >
-              <CardMedia
-                component="img"
-                height="194"
-                alt={articlesArray.title}
-                src={`${favs.img}`}
-              />
-              <Typography variant="p" component="h1">
-                {capitalizeFunction(favs.title)}
-              </Typography>
-              <Typography variant="p" component="h4">{`by: ${capitalize1Letter(
-                favs.by
-              )}`}</Typography>
-              <Typography variant="p" component="h4" p="0 1rem 1rem">
-                {dateFormatting(favs.date)}
-              </Typography>
+              <Box
+                className={classes.cardCSS_articles}
+                onClick={() => {
+                  openModalHandler();
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="194"
+                  alt={articlesArray.title}
+                  src={`${favs.img}`}
+                />
+                <Typography variant="p" component="h1" p="1rem">
+                  {capitalizeFunction(favs.title)}
+                </Typography>
+                <Typography
+                  variant="p"
+                  component="h4"
+                  p="0 1rem 1rem"
+                >{`by: ${capitalize1Letter(favs.by)}`}</Typography>
+                <Typography variant="p" component="h4" p="0 1rem 1rem">
+                  {dateFormatting(favs.date)}
+                </Typography>
+              </Box>
               <CardActionsCSS disableSpacing>
                 <ButtonFavorites keyForFavorites={`${favs.id}`} />
               </CardActionsCSS>

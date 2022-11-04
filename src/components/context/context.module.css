@@ -1,4 +1,12 @@
-.cardCSS:hover {
+.cardCSS_articles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  text-align: left;
+}
+
+.cardCSS_articles:hover {
   cursor: pointer;
   background-color: var(--color-primary-dark);
   color: var(--color-white);
