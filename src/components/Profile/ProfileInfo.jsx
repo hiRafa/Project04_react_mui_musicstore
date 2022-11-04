@@ -77,7 +77,7 @@ const ProfileInfo = () => {
 
   return (
     <section className={classes.profile}>
-      <Card sx={{ width: "100%" }}>
+      <Card sx={{ width: "100%", p: "1rem 1rem 0 1rem" }}>
         <Typography
           variant="h4"
           sx={{ p: 3 }}

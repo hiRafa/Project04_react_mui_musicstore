@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import LoginContent from "./context/login-token-context";
 
-import BoxPages from "./ui/BoxPages";
 import UserProfile from "./Profile/UserProfile";
 import LogInPage from "./LogInPage";
 import { Fragment } from "react";

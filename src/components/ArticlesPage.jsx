@@ -8,7 +8,7 @@ import CardsList from "./ui/CardsList";
 import ArticlesModalContent from "./Articles/ArticlesModalContent";
 
 const ArticlesPage = () => {
-  const { articlesArray, userInfo } = useContext(GlobalContexts);
+  const { articlesArray } = useContext(GlobalContexts);
   const { displayAllArticles, cardsPerPage } = useContext(CardsContext);
 
   let pageCount;

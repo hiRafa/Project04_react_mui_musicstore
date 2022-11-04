@@ -7,7 +7,8 @@ import Section from "../ui/Section";
 
 const ProfileDelete = () => {
   const { navigate, userToken, logout } = useContext(LoginTokenContexts);
-  const { userKey, fetchUserInfo } = useContext(GlobalContexts);
+  const { userKey, fetchUserInfo, userFavsArr } = useContext(GlobalContexts);
+  console.log(userFavsArr);
 
   const deleteDataHandler = (event) => {
     event.preventDefault();
@@ -27,6 +28,7 @@ const ProfileDelete = () => {
       });
       navigate("/profile", { replace: true });
     });
+    console.log(userFavsArr);
   };
 
   const deleteAccountHandler = (event) => {

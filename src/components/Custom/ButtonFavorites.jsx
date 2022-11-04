@@ -28,11 +28,11 @@ const ButtonFavorites = ({ keyForFavorites }) => {
   // console.log(keyForFavorites);
   // Setting the state chcked or unchcked for the button to load as checked if the favorite ID exists in the array of favorites we just created
   // or not, and to update when we use the fetch put or fetch delete
-
+  console.log(userFavsArr);
   let randomID = useId();
   const fetchHelper = (PUTdelete) => {
     fetch(
-      `https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users/${userKey}/favoritesIDs/${randomID}.json`,
+      `https://project04favoritecards-default-rtdb.asia-southeast1.firebasedatabase.app/users/${userKey}/favoritesIDs/${keyForFavorites}.json`,
       {
         method: PUTdelete,
         headers: {

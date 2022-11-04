@@ -107,7 +107,7 @@ export function GlobalContextsProvider(props) {
   // console.log(userKey);
 
   // --------------------------- Fetch the PRODUCTS for the home page and favorites page
-  const [productsArray, setProductsArray] = useState();
+  const [productsArray, setProductsArray] = useState([]);
   useEffect(() => {
     setIsLoading(true);
     const fetchProducts = async () => {
@@ -136,7 +136,7 @@ export function GlobalContextsProvider(props) {
             // console.log(responseData[key][nestedKey]); // printing all nested objects on second level.
             helperArray.push({
               id: nestedKey,
-              type: key,
+              label: key,
               name: responseData[key][nestedKey].name,
               description: responseData[key][nestedKey].description,
               price: responseData[key][nestedKey].price,
@@ -155,9 +155,10 @@ export function GlobalContextsProvider(props) {
       setHttpError(error.message);
     });
   }, []);
+  console.log(productsArray);
 
   // ----------------- Fetch Articles and News
-  const [articlesArray, setArticlesArray] = useState();
+  const [articlesArray, setArticlesArray] = useState([]);
   useEffect(() => {
     setIsLoading(true);
     const fetchNews = async () => {
@@ -185,17 +186,17 @@ export function GlobalContextsProvider(props) {
           review: responseData[key].review,
           img: responseData[key].imageURL,
         });
-        console.log("number2");
+        // console.log("number2");
       }
       setArticlesArray(arrayHelper); //setting the fetched data with useState
       setIsLoading(false);
-      console.log("number3");
+      // console.log("number3");
     };
     fetchNews().catch((error) => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-    console.log("number1");
+    // console.log("number1");
   }, []);
 
   // ------------ 5 most recent news IDs

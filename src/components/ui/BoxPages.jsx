@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 const BoxPages = (props) => {
   return (
     <Fragment>
-      <Box className={classes.boxPages}>{props.children}</Box>
+      <Box className={`${classes.boxPages} ${props.className}`}>{props.children}</Box>
     </Fragment>
   );
 };

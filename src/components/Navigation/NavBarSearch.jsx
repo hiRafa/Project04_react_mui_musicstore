@@ -1,5 +1,6 @@
+import React, { useContext } from "react";
 import { styled, Box, TextField, Autocomplete } from "@mui/material";
-import React from "react";
+import GlobalContexts from "../context/global-contexts";
 
 const SearchCustom = styled("div")(({ theme }) => ({
   backgroundColor: "white",
@@ -20,11 +21,26 @@ const products = [
 ];
 
 const NavBarSearch = () => {
+  const { productsArray } = useContext(GlobalContexts);
+
+  const uniqueLabelsOnly = [];
+  const oneOfEachItemForLabel = productsArray.filter((product) => {
+    const isDuplicate = uniqueLabelsOnly.includes(product.label);
+
+    if (!isDuplicate) {
+      uniqueLabelsOnly.push(product.label);
+
+      return true;
+    }
+
+    return false;
+  });
+
   return (
     <SearchCustom>
       <AutocompleteCSS
         id="country-select-demo"
-        options={products}
+        options={oneOfEachItemForLabel}
         autoHighlight
         getOptionLabel={(option) => option.label}
         renderOption={(props, option) => (

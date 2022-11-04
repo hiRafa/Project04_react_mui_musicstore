@@ -68,6 +68,7 @@
   color: white;
   background-color: var(--color-primary-main);
   transition: var(--transition);
+  border: none;
 }
 
 .actions button:hover,
@@ -88,4 +89,8 @@
 .actions .toggle:hover {
   background-color: transparent;
   color: #ae82cc;
+}
+
+.favoritesPage {
+  text-align: center;
 }

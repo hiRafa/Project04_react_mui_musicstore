@@ -62,7 +62,7 @@ const ProfileEditForm = () => {
       <Stack sx={{ gap: "1rem" }}>
         <Typography
           variant="h4"
-          sx={{ p: 3 }}
+          sx={{ p: "1rem 1rem 1rem 0" }}
         >{`${userInfo.name} is editing profile`}</Typography>
         <ProfileEditItem
           profilename="Name"

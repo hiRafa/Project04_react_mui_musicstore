@@ -16,7 +16,7 @@ import classes from "./context.module.css";
 import ButtonFavorites from "../Custom/ButtonFavorites";
 import ButtonCartAdd from "../Custom/ButtonCartAdd";
 
-const CardsContext = createContext();
+const CardsContext = createContext("");
 
 const CardCSS = styled(Card)({
   width: "80%",
@@ -120,7 +120,7 @@ export function CardsContextProvider(props) {
         <CardCSS key={product.id}>
           <CardHeader
             title={capitalizeFunction(product.name)}
-            subheader={capitalize1Letter(product.type)}
+            subheader={capitalize1Letter(product.label)}
           />
           <Typography p="0 1rem 1rem">{`¥${product.price.toFixed(
             3
@@ -128,7 +128,7 @@ export function CardsContextProvider(props) {
           <CardMedia
             component="img"
             height="194"
-            alt={productsArray.type}
+            alt={productsArray.label}
             src={`${product.img}`}
           />
           <CardContentCSS>
@@ -175,10 +175,10 @@ export function CardsContextProvider(props) {
             alt={articlesArray.title}
             src={`${news.img}`}
           />
-          <Typography variant="p" component="h1">
+          <Typography variant="p" component="h1" p="1rem">
             {capitalizeFunction(news.title)}
           </Typography>
-          <Typography variant="p" component="h4">{`by: ${capitalize1Letter(
+          <Typography variant="p" component="h4" p="0 1rem 1rem">{`by: ${capitalize1Letter(
             news.by
           )}`}</Typography>
           <Typography variant="p" component="h4" p="0 1rem 1rem">
@@ -198,7 +198,7 @@ export function CardsContextProvider(props) {
           <CardCSS key={favs.id}>
             <CardHeader
               title={capitalizeFunction(favs.name)}
-              subheader={capitalize1Letter(favs.type)}
+              subheader={capitalize1Letter(favs.label)}
             />
             <Typography p="0 1rem 1rem">{`¥${favs.price.toFixed(
               3
@@ -206,7 +206,7 @@ export function CardsContextProvider(props) {
             <CardMedia
               component="img"
               height="194"
-              alt={favs.type}
+              alt={favs.label}
               src={`${favs.img}`}
             />
             <CardContentCSS>

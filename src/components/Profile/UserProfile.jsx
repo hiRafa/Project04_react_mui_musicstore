@@ -1,6 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import GlobalContexts from "../context/global-contexts";
+import classes from "./Profile.module.css";
 
 import ProfileNew from "./ProfileNew";
 import ProfileInfo from "./ProfileInfo";
@@ -11,7 +12,7 @@ const UserProfile = () => {
   const { userInfo } = useContext(GlobalContexts);
 
   return (
-    <BoxPages>
+    <BoxPages className={classes.userprofilePage}>
       {userInfo ? (
         <Fragment>
           <ProfileInfo />

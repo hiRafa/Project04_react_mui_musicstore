@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import CardsContext from "./context/cards-context";
 import GlobalContexts from "./context/global-contexts";
+import classes from "./Pages.module.css";
 
 import BoxPages from "./ui/BoxPages";
 import ButtonAll from "./ui/ButtonAll";
@@ -11,6 +12,7 @@ import Section from "./ui/Section";
 import ArticlesModalContent from "./Articles/ArticlesModalContent";
 
 import { Typography } from "@mui/material";
+import classNames from "classnames";
 
 const FavoritesPage = () => {
   const { userFavsArr, userInfo } = useContext(GlobalContexts);
@@ -19,16 +21,16 @@ const FavoritesPage = () => {
   let pageCount = Math.ceil(userFavsArr.length / cardsPerPage);
 
   return (
-    <BoxPages>
+    <BoxPages className={classes.favoritesPage}>
       <Section>
-        <Typography variant="h1" p={1}>
+        <Typography variant="h3" p={1}>
           Favorites
         </Typography>
       </Section>
       {userInfo ? (
         userFavsArr.length === 0 ? (
           <div>
-            <Typography variant="h2" p={6}>
+            <Typography variant="h4" p={6}>
               Let's start adding new favorites
             </Typography>
             <NavLink to="/">
@@ -43,7 +45,7 @@ const FavoritesPage = () => {
         )
       ) : (
         <div>
-          <Typography variant="h2" p={6}>
+          <Typography variant="h4" p={6}>
             Log in to check your favorites!
           </Typography>
           <NavLink to="/logIn">

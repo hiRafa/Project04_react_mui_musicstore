@@ -3,6 +3,7 @@ import classes from "./Profile.module.css";
 import { styled, TextField, Typography } from "@mui/material";
 import LoginContent from "../context/login-token-context";
 import GlobalContexts from "../context/global-contexts";
+import ButtonAll from "../ui/ButtonAll";
 
 const TextFieldCSS = styled(TextField)({
   variant: "outlined",
@@ -42,7 +43,7 @@ const ProfileNew = () => {
             name: enteredName,
             surname: enteredSurname,
             song: enteredSong,
-            favoritesIDs: ["20220901"],
+            favoritesIDs: [],
           }),
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +60,7 @@ const ProfileNew = () => {
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
-      <Typography variant="h2">Please fill out the form</Typography>
+      <Typography variant="h3">Please fill out the form</Typography>
       <TextFieldCSS
         label="name"
         input="name"
@@ -81,8 +82,8 @@ const ProfileNew = () => {
         inputRef={songInputRef}
         id="outlined-basic"
       />
-      <div className={classes.action}>
-        <button>Confirm Data</button>
+      <div className={classes.buttonConfirmData}>
+        <ButtonAll buttonTxt={"Confirm Data"} />
       </div>
     </form>
   );
